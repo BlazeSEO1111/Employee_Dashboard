@@ -40,17 +40,17 @@ export const useAuthContext = (): IAuthContext => {
   }, []);
 
   useEffect(() => {
-    if (authState?.access_token) {
+    if (authState?.accessToken) {
       getAccountExtendDetails();
     } else {
       //   mixpanelSetUserId("guess");
     }
-  }, [authState?.access_token]);
+  }, [authState?.accessToken]);
 
   useEffect(() => {
-    if (!authState?.access_token) return;
+    if (!authState?.accessToken) return;
     let expireInterval = setInterval(() => {
-      const decodedToken = jwt.decode(authState?.access_token, {
+      const decodedToken = jwt.decode(authState?.accessToken, {
         complete: true,
       }) as JwtPayload;
       if (decodedToken && decodedToken?.payload) {
@@ -65,7 +65,7 @@ export const useAuthContext = (): IAuthContext => {
 
   const getAccountExtendDetails = async () => {
     try {
-      const accountData = await authApi.getAccountExtendDetails(authState?.access_token ?? "");
+      const accountData = await authApi.getAccountExtendDetails(authState?.accessToken ?? "");
       setAccountExtendDetail(accountData);
       return;
     } catch (error) {

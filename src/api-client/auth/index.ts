@@ -11,7 +11,7 @@ class ApiAuth extends ApiClientBase {
    * Login
    */
   public async login(params: LoginParamsType): Promise<LoginResponseType | any> {
-    const res = await this.instance.post("/api/auth/login", params);
+    const res = await this.instance.post("/api/v1/auth/sign-in", params);
     return res;
   }
 
@@ -19,7 +19,7 @@ class ApiAuth extends ApiClientBase {
    * sign up
    */
   public async signUp(params: RegisterParamsType): Promise<any> {
-    const res = await this.instance.post("/api/auth/register", params, {
+    const res = await this.instance.post("/api/v1/auth/sign-up", params, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -75,7 +75,7 @@ class ApiAuth extends ApiClientBase {
   }
 
   public async getAccountExtendDetails(access_token: string): Promise<AccountDetailResponse> {
-    const res = await this.instance.get("/api/auth/get-user-info", {
+    const res = await this.instance.get("/api/v1/users/get-all?", {
       headers: {
         Authorization: "Bearer " + access_token,
       },

@@ -27,10 +27,10 @@ class ApiPayment extends ApiClientBase {
     return res;
   }
 
-  public async paymentHistory(access_token: string): Promise<BaseResponse | any> {
-    const res = await this.instance.get(`/api/payments/get-payment-history`, {
+  public async paymentHistory(accessToken: string): Promise<BaseResponse | any> {
+    const res = await this.instance.get(`/api/v1/users/get-all?`, {
       headers: {
-        Authorization: "Bearer " + access_token,
+        Authorization: "Bearer " + accessToken,
       },
     });
     return res.data;

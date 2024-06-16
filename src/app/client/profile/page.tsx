@@ -1,16 +1,42 @@
 "use client";
+import { paymentApi } from "@/api-client";
 import Header from "@/components/Header";
 import AppLayout from "@/components/Layout/AppLayout";
 import { AuthContext } from "@/context/useAuthContext";
 import convertNumbThousand from "@/utils/convertNumbThousand";
+import { useQuery } from "@tanstack/react-query";
 import { NextPage } from "next";
 import { useRouter } from "next/navigation";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { toast } from "react-toastify";
+import { ItemType } from "../recharge/page";
 
 const Profile: NextPage<any> = () => {
-  const { handleLogOut, authState, accountExtendDetail } = useContext(AuthContext);
+  const { handleLogOut, authState, accountExtendDetail, getAccountExtendDetails } = useContext(AuthContext);
 
   const router = useRouter();
+
+
+  const { isPending, error, data } = useQuery<ItemType[]>({
+    queryKey: ["getPaymentHistory", authState?.access_token],
+    queryFn: async () => await paymentApi.paymentHistory(authState?.access_token ?? ""),
+  });
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      getData(intervalId);
+    }, 5000);
+    getData(intervalId);
+    return () => clearInterval(intervalId);
+  }, [authState?.access_token]);
+
+  const getData = async (clearId?: any) => {
+    try {
+      getAccountExtendDetails();
+    } catch (error) {
+      toast.error("Error when payment, please try again!");
+    }
+  };
   return (
     <AppLayout>
       <div className='w-full h-screen flex flex-col'>
@@ -76,7 +102,7 @@ const Profile: NextPage<any> = () => {
               <div className=' flex '>
                 <button
                   className='w-[100%]'
-                  // onClick={() => setIsOpenChangePassword(true)}
+                // onClick={() => setIsOpenChangePassword(true)}
                 >
                   <p className=' bg-blue-500 font-extrabold text-lg border  px-8 py-2 border-slate-400 rounded-md flex items-center justify-center text-white	'>
                     Lưu thay đổi

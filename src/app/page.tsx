@@ -6,8 +6,8 @@ import { NextPage } from "next";
 import Image from "next/image";
 import type { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Mua BM kháng, Via Việt Cổ | Via XMDT, TKQC NLM  | Mua Fanpage Facebook",
-  description: "Mua BM kháng, Via Việt Cổ | Via XMDT, TKQC NLM  | Mua Fanpage Facebook",
+  title: "Employee Dashboard",
+  description: "Employee Dashboard",
 };
 
 const Home: NextPage<any> = () => {

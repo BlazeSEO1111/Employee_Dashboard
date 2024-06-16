@@ -92,7 +92,17 @@ const Header: FC<IHeader> = ({ title }) => {
   return (
     <div className='flex  justify-between  items-center w-full'>
       <div>
-        <h1 className='font-workSansSemiBold text-[36px] max-lg:hidden'>{renderTitle()}</h1>
+        <div className="flex gap-4">
+          <h1 className='font-workSansSemiBold text-[26px] max-lg:hidden'>{renderTitle()}
+          </h1>
+          <p className="font-workSansSemiBold text-[16px] shadow-lg p-3 mt-[-5px] bg-gray-500 rounded-md">
+            Nhân viên
+          </p>
+          <p className="font-workSansSemiBold text-[16px] shadow-lg p-3 mt-[-5px] bg-gray-500 rounded-md">
+            blaze@okvip.com
+          </p>
+        </div>
+
         <div className='hidden max-lg:block'>
           <div className='flex gap-2 items-center'>
             <Bars3Icon className='h-6 w-6' color='black' onClick={() => setOpenMenuMobile(true)} />
@@ -105,9 +115,8 @@ const Header: FC<IHeader> = ({ title }) => {
                 {sideMenuMobile?.map((sideItem: SideMenuMobile, i: number) => (
                   <a
                     key={i}
-                    className={`${
-                      sideItem?.isChildren ? "py-4 ml-14" : "flex gap-4 items-center p-4"
-                    } mr-4 border-b border-gray-800 ${!sideItem.isParent ? " hover:bg-success-500" : ""}`}
+                    className={`${sideItem?.isChildren ? "py-4 ml-14" : "flex gap-4 items-center p-4"
+                      } mr-4 border-b border-gray-800 ${!sideItem.isParent ? " hover:bg-success-500" : ""}`}
                     href={sideItem?.href}
                   >
                     <button
@@ -128,7 +137,7 @@ const Header: FC<IHeader> = ({ title }) => {
       </div>
 
       <div className='flex justify-center items-center'>
-        <div className='relative mr-6 max-lg:mr-2 ml-4 max-lg:hidden' ref={searchRef}>
+        {/* <div className='relative mr-6 max-lg:mr-2 ml-4 max-lg:hidden' ref={searchRef}>
           <MagnifyingGlassIcon className='w-5 h-5 max-lg:w-4 max-lg:h-4  absolute max-lg:top-[6px] top-[11px] left-[5px]' />
 
           <input
@@ -139,7 +148,7 @@ const Header: FC<IHeader> = ({ title }) => {
               setSearchString(e?.target?.value);
             }}
           />
-        </div>
+        </div> */}
         <div className='hidden max-lg:block'>
           {openSeachMobile ? (
             <div className='fixed h-screen bg-white  z-[1000] top-0 left-0 w-full flex flex-col gap-4 px-6 pt-6'>
@@ -153,12 +162,12 @@ const Header: FC<IHeader> = ({ title }) => {
                   onChange={(e) => {
                     setSearchString(e?.target?.value);
                   }}
-                  // onKeyPress={(event) => {
-                  //   if (event.key === "Enter" && event.currentTarget.value) {
-                  //     setKeyword(event.currentTarget.value ?? "");
-                  //     router.push("/search?keyword=" + event.currentTarget.value);
-                  //   }
-                  // }}
+                // onKeyPress={(event) => {
+                //   if (event.key === "Enter" && event.currentTarget.value) {
+                //     setKeyword(event.currentTarget.value ?? "");
+                //     router.push("/search?keyword=" + event.currentTarget.value);
+                //   }
+                // }}
                 />
               </div>
             </div>

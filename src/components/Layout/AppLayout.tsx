@@ -8,7 +8,7 @@ interface AppLayoutTypes {
 const AppLayout: FC<AppLayoutTypes> = ({ children }) => {
   return (
     <div>
-      <div className='flex pl-80  bg-[#E9F2FD] max-lg:pl-0'>{children}</div>
+      <div className='flex pl-80   max-lg:pl-0'>{children}</div>
     </div>
   );
 };

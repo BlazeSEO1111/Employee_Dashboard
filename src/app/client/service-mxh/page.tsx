@@ -9,7 +9,7 @@ const Profile: NextPage<any> = () => {
     <AppLayout>
       <div className="w-full  h-screen flex flex-col">
         <div className="p-6">
-          <Header title="Hệ thống like sub"/>
+          <Header title="Hệ thống like sub" />
           <div className="h-[1px] bg-black  bg-opacity-20 my-4 max-lg:hidden" />
           <div className="   bg-[#F8D7D9] rounded-xl ">
             <div className="  my-4  p-5 max-lg:p-1 text-[15px] text-red-700 text-xl font-workSansMedium text-start">

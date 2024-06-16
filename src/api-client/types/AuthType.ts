@@ -1,12 +1,12 @@
 import { BaseResponse } from "./BaseResponse";
 
 export interface LoginParamsType {
-  username: string;
+  email: string;
   password: string;
 }
 
 export interface LoginResponseType extends BaseResponse {
-  access_token: string;
+  accessToken: string;
 }
 
 export interface AccountDetailResponse {

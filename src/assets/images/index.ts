@@ -12,7 +12,11 @@ import ToolIcon from "./tool.png";
 import ToolFbIcon from "./toolfb.png";
 import ContactIcon from "./contact.png";
 import Contact2Icon from "./contact-2.png";
+import UserIcon from "./userIcon.png"
+import AdCode from "./adcode.png"
+import TeleGramIcon from "./telegram.png"
 export {
+  TeleGramIcon,
   FacebookIcon,
   AdsIcon,
   AffiliateIcon,
@@ -27,4 +31,6 @@ export {
   HistoryIcon,
   ContactIcon,
   Contact2Icon,
+  UserIcon,
+  AdCode
 };

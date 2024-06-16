@@ -13,6 +13,8 @@ import {
   TicketIcon,
   ToolFbIcon,
   ToolIcon,
+  UserIcon,
+  TeleGramIcon
 } from "@/assets/images";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,6 +23,10 @@ import { use, useContext, useEffect, useState } from "react";
 import Avatar from "../Avatar";
 import { AuthContext } from "@/context/useAuthContext";
 import { LoginIcon } from "@/assets/icon";
+import {
+  SkypeOutlined,
+  MailOutlined
+} from '@ant-design/icons';
 
 interface MenuItemType {
   key: string;
@@ -28,23 +34,47 @@ interface MenuItemType {
   label: string;
   active: boolean;
 }
-
 const SideMenu = () => {
   let pathname = usePathname();
   const { authState } = useContext(AuthContext);
+
   const [listMenu] = useState<MenuItemType[]>([
     {
-      key: "",
-      icon: FacebookIcon,
-      label: "Mua tài khoản",
+      key: "client/profile-employee",
+      icon: UserIcon,
+      label: "Hồ sơ",
       active: false,
     },
     {
-      key: "client/service-mxh",
-      icon: AdsIcon,
-      label: "Hệ thống like sub",
+      key: "client/ad-codes",
+      icon: ProfileIcon,
+      label: "Mã Quảng Cáo",
       active: false,
     },
+    {
+      key: "client/campaign",
+      icon: ProfileIcon,
+      label: "Campain",
+      active: false,
+    },
+    {
+      key: "client/service-partner",
+      icon: ProfileIcon,
+      label: "Service Partner",
+      active: false,
+    },
+    // {
+    //   key: "client/service",
+    //   icon: FacebookIcon,
+    //   label: "Mua tài khoản",
+    //   active: false,
+    // },
+    // {
+    //   key: "client/service-mxh",
+    //   icon: AdsIcon,
+    //   label: "Hệ thống like sub",
+    //   active: false,
+    // },
   ]);
 
   const [listMenu2] = useState<MenuItemType[]>([
@@ -81,48 +111,48 @@ const SideMenu = () => {
   ]);
 
   const [listMenu3] = useState<MenuItemType[]>([
-    {
-      key: "https://2fa.live/",
-      icon: QuestionIcon,
-      label: "Tut Miễn Phí",
-      active: false,
-    },
-    {
-      key: "https://2fa.live/",
-      icon: ChatIcon,
-      label: "Nhóm chat",
-      active: false,
-    },
-    {
-      key: "https://2fa.live/",
-      icon: CreditCardIcon,
-      label: "Công cụ add thẻ",
-      active: false,
-    },
-    {
-      key: "https://2fa.live/",
-      icon: ToolFbIcon,
-      label: "Tool Facebook",
-      active: false,
-    },
-    {
-      key: "https://2fa.live/",
-      icon: AdsIcon,
-      label: "Tool quản lý tài khoản",
-      active: false,
-    },
-    {
-      key: "https://2fa.live/",
-      icon: IdCardIcon,
-      label: "Tạo phôi XMDT",
-      active: false,
-    },
-    {
-      key: "https://2fa.live/",
-      icon: ToolIcon,
-      label: "Tool 2FA",
-      active: false,
-    },
+    // {
+    //   key: "https://2fa.live/",
+    //   icon: QuestionIcon,
+    //   label: "Tut Miễn Phí",
+    //   active: false,
+    // },
+    // {
+    //   key: "https://2fa.live/",
+    //   icon: ChatIcon,
+    //   label: "Nhóm chat",
+    //   active: false,
+    // },
+    // {
+    //   key: "https://2fa.live/",
+    //   icon: CreditCardIcon,
+    //   label: "Công cụ add thẻ",
+    //   active: false,
+    // },
+    // {
+    //   key: "https://2fa.live/",
+    //   icon: ToolFbIcon,
+    //   label: "Tool Facebook",
+    //   active: false,
+    // },
+    // {
+    //   key: "https://2fa.live/",
+    //   icon: AdsIcon,
+    //   label: "Tool quản lý tài khoản",
+    //   active: false,
+    // },
+    // {
+    //   key: "https://2fa.live/",
+    //   icon: IdCardIcon,
+    //   label: "Tạo phôi XMDT",
+    //   active: false,
+    // },
+    // {
+    //   key: "https://2fa.live/",
+    //   icon: ToolIcon,
+    //   label: "Tool 2FA",
+    //   active: false,
+    // },
   ]);
   const [listMenu4] = useState<MenuItemType[]>([
     {
@@ -174,21 +204,18 @@ const SideMenu = () => {
             return (
               <li className="mt-1 text-[15px] " key={value.key}>
                 <div
-                  className={`p-[10px] pl-5     border-l-4   transition-all duration-300 ${
-                    _checkActiveTab(value)
-                      ? "bg-select-500 border-select-700"
-                      : ""
-                  } w-full`}
+                  className={`p-[10px] pl-5     border-l-4   transition-all duration-300 ${_checkActiveTab(value)
+                    ? "bg-select-500 border-select-700"
+                    : ""
+                    } w-full`}
                 >
                   <Link
                     href={`/${value.key}`}
-                    className={`flex transition-all  items-center  hover:font-workSansSemiBold  hover:px-2  ${
-                      _checkActiveTab(value) ? "text-select-700" : ""
-                    }    duration-300 ${
-                      pathname === value.key
+                    className={`flex transition-all  items-center  hover:font-workSansSemiBold  hover:px-2  ${_checkActiveTab(value) ? "text-select-700" : ""
+                      }    duration-300 ${pathname === value.key
                         ? "text-dark-900 font-workSansSemiBold"
                         : "  font-workSansMedium text-dark-900"
-                    }`}
+                      }`}
                   >
                     <Image
                       src={value.icon}
@@ -214,21 +241,18 @@ const SideMenu = () => {
               return (
                 <li className="mt-1  text-[15px] " key={value.key}>
                   <div
-                    className={`p-[10px] pl-5    border-l-4   transition-all duration-300  ${
-                      _checkActiveTab(value)
-                        ? "bg-select-500 border-select-700"
-                        : ""
-                    } w-full`}
+                    className={`p-[10px] pl-5    border-l-4   transition-all duration-300  ${_checkActiveTab(value)
+                      ? "bg-select-500 border-select-700"
+                      : ""
+                      } w-full`}
                   >
                     <Link
                       href={`/${value.key}`}
-                      className={`flex transition-all  items-center  hover:font-workSansSemiBold  hover:px-2  ${
-                        _checkActiveTab(value) ? "text-select-700" : ""
-                      }   duration-300 ${
-                        pathname === value.key
+                      className={`flex transition-all  items-center  hover:font-workSansSemiBold  hover:px-2  ${_checkActiveTab(value) ? "text-select-700" : ""
+                        }   duration-300 ${pathname === value.key
                           ? "text-dark-900 font-workSansSemiBold"
                           : "  font-workSansMedium text-dark-900"
-                      }`}
+                        }`}
                     >
                       <Image
                         src={value.icon}
@@ -247,28 +271,25 @@ const SideMenu = () => {
           </div>
         )}
         <div className=" border-b border-black border-opacity-10">
-          <p className="px-[10px] pl-5 mt-4 font-workSansSemiBold text-md  text-gray-600 ">
+          {/* <p className="px-[10px] pl-5 mt-4 font-workSansSemiBold text-md  text-gray-600 ">
             Công cụ
-          </p>
+          </p> */}
           {listMenu3.map((value, index) => {
             return (
               <li className="mt-1  text-[15px] " key={index}>
                 <div
-                  className={`p-[10px] pl-5    border-l-4   transition-all duration-300  ${
-                    _checkActiveTab(value)
-                      ? "bg-select-500 border-select-700"
-                      : ""
-                  } w-full`}
+                  className={`p-[10px] pl-5    border-l-4   transition-all duration-300  ${_checkActiveTab(value)
+                    ? "bg-select-500 border-select-700"
+                    : ""
+                    } w-full`}
                 >
                   <Link
                     href={`${value.key}`}
-                    className={`flex transition-all  items-center  hover:font-workSansSemiBold  hover:px-2  ${
-                      _checkActiveTab(value) ? "text-select-700" : ""
-                    }   duration-300 ${
-                      pathname === value.key
+                    className={`flex transition-all  items-center  hover:font-workSansSemiBold  hover:px-2  ${_checkActiveTab(value) ? "text-select-700" : ""
+                      }   duration-300 ${pathname === value.key
                         ? "text-dark-900 font-workSansSemiBold"
                         : "  font-workSansMedium text-dark-900"
-                    }`}
+                      }`}
                   >
                     <Image
                       src={value.icon}
@@ -285,29 +306,41 @@ const SideMenu = () => {
             );
           })}
         </div>
-        <div className="   border-black border-opacity-10">
-          <p className="px-[10px] pl-5 mt-4 font-workSansSemiBold text-md  text-gray-600 ">
+        <div className="   border-black border-opacity-10  pl-5">
+          <p className="px-[10px] mt-4 font-workSansSemiBold text-md  text-gray-600 ">
             Liên hệ
           </p>
+          <div className="flex flex-col gap-5 mt-5">
+            <div className="flex gap-3">
+              <SkypeOutlined />
+              <p>live:.cid.5bed127eed70c63b</p>
+            </div>
+            <div className="flex gap-3 items-center">
+              <Image src={TeleGramIcon} alt="telegram" width={15} height={3} className="w-[15px] h-[15px]" />
+              <p>max_clickAD</p>
+            </div>
+            <div className="flex gap-3">
+              <MailOutlined />
+              <p>maxevdok@clickadilla.com</p>
+            </div>
+          </div>
+
           {listMenu4.map((value, index) => {
             return (
               <li className="mt-1  text-[15px] " key={value.key}>
                 <div
-                  className={`p-[10px] pl-5    border-l-4   transition-all duration-300  ${
-                    _checkActiveTab(value)
-                      ? "bg-select-500 border-select-700"
-                      : ""
-                  } w-full`}
+                  className={`p-[10px] pl-5    border-l-4   transition-all duration-300  ${_checkActiveTab(value)
+                    ? "bg-select-500 border-select-700"
+                    : ""
+                    } w-full`}
                 >
                   <Link
                     href={`/${value.key}`}
-                    className={`flex transition-all  items-center  hover:font-workSansSemiBold  hover:px-2  ${
-                      _checkActiveTab(value) ? "text-select-700" : ""
-                    }   duration-300 ${
-                      pathname === value.key
+                    className={`flex transition-all  items-center  hover:font-workSansSemiBold  hover:px-2  ${_checkActiveTab(value) ? "text-select-700" : ""
+                      }   duration-300 ${pathname === value.key
                         ? "text-dark-900 font-workSansSemiBold"
                         : "  font-workSansMedium text-dark-900"
-                    }`}
+                      }`}
                   >
                     <Image
                       src={value.icon}

@@ -13,7 +13,7 @@ import { ToastContainer, toast, Slide } from "react-toastify";
 import * as yup from "yup";
 
 const loginValidationSchema = yup.object({
-  username: yup.string().required("Vui lòng nhập tên đăng nhập"),
+  email: yup.string().required("Vui lòng nhập tên đăng nhập"),
   password: yup.string().required("Vui lòng nhập mật khẩu"),
 });
 
@@ -26,7 +26,7 @@ const Login: NextPage<any> = () => {
 
   useEffect(() => {
     if (authState) {
-      router.push("/client/profile");
+      // router.push("/client/profile-employee");
     } else {
       console.log("not logined");
     }
@@ -35,16 +35,16 @@ const Login: NextPage<any> = () => {
   const onSubmit = async (data: any) => {
     try {
       setIsLoading(true);
-      let resLogin = await authApi.login({ username: data.username, password: data.password });
+      let resLogin = await authApi.login({ email: data.email, password: data.password });
+      console.log("resLoginresLogin", resLogin);
+
       if (resLogin.code == 999) {
-        toast.error(resLogin.message, { autoClose: 4000 });
         setIsLoading(false);
         return;
       }
       handleLogged(resLogin.data);
       setIsLoading(false);
     } catch (error: any) {
-      toast.error(`${error?.response?.data?.error_description ?? error?.message}`, {});
       setIsLoading(false);
     }
   };
@@ -62,7 +62,7 @@ const Login: NextPage<any> = () => {
 
             <BMForm defaultValues={{}} onSubmit={onSubmit} validationSchemaParams={loginValidationSchema}>
               <BMInput
-                name='username'
+                name='email'
                 labelText='Tên đăng nhập'
                 placeholder='Enter username'
                 containerClassName='mt-4 '
@@ -77,9 +77,8 @@ const Login: NextPage<any> = () => {
 
               <button
                 type='submit'
-                className={`w-full mb-6 ${
-                  isLoading ? "opacity-70" : "opacity-100"
-                } flex justify-center items-center py-3 mt-5 bg-success-500`}
+                className={`w-full mb-6 ${isLoading ? "opacity-70" : "opacity-100"
+                  } flex justify-center items-center py-3 mt-5 bg-success-500`}
                 disabled={isLoading}
               >
                 {isLoading ? <Spinner /> : null}
