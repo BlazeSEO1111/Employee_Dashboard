@@ -1,11 +1,16 @@
 "use client"
+import { List } from 'antd'
 import React from 'react'
 
-const index = () => {
+const index = ({ dataNotification }: { dataNotification: any }) => {
   return (
     <div>
-      You don't have any notifications yet.
-      Notifications sent by the administration will be displayed here.
+      <List
+        size="small"
+        bordered
+        dataSource={dataNotification}
+        renderItem={(item: any) => <List.Item>{item.content}</List.Item>}
+      />
     </div>
   )
 }

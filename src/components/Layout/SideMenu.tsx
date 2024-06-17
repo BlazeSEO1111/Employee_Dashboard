@@ -14,7 +14,10 @@ import {
   ToolFbIcon,
   ToolIcon,
   UserIcon,
-  TeleGramIcon
+  TeleGramIcon,
+  ServiceIcon,
+  AdsSideBarIcon,
+  CampaignIcon
 } from "@/assets/images";
 import Image from "next/image";
 import Link from "next/link";
@@ -46,23 +49,24 @@ const SideMenu = () => {
       active: false,
     },
     {
+      key: "client/service-partner",
+      icon: ServiceIcon,
+      label: "Service Partner",
+      active: false,
+    },
+    {
       key: "client/ad-codes",
-      icon: ProfileIcon,
+      icon: AdsSideBarIcon,
       label: "Mã Quảng Cáo",
       active: false,
     },
     {
       key: "client/campaign",
-      icon: ProfileIcon,
+      icon: CampaignIcon,
       label: "Campain",
       active: false,
     },
-    {
-      key: "client/service-partner",
-      icon: ProfileIcon,
-      label: "Service Partner",
-      active: false,
-    },
+
     // {
     //   key: "client/service",
     //   icon: FacebookIcon,
@@ -111,48 +115,6 @@ const SideMenu = () => {
   ]);
 
   const [listMenu3] = useState<MenuItemType[]>([
-    // {
-    //   key: "https://2fa.live/",
-    //   icon: QuestionIcon,
-    //   label: "Tut Miễn Phí",
-    //   active: false,
-    // },
-    // {
-    //   key: "https://2fa.live/",
-    //   icon: ChatIcon,
-    //   label: "Nhóm chat",
-    //   active: false,
-    // },
-    // {
-    //   key: "https://2fa.live/",
-    //   icon: CreditCardIcon,
-    //   label: "Công cụ add thẻ",
-    //   active: false,
-    // },
-    // {
-    //   key: "https://2fa.live/",
-    //   icon: ToolFbIcon,
-    //   label: "Tool Facebook",
-    //   active: false,
-    // },
-    // {
-    //   key: "https://2fa.live/",
-    //   icon: AdsIcon,
-    //   label: "Tool quản lý tài khoản",
-    //   active: false,
-    // },
-    // {
-    //   key: "https://2fa.live/",
-    //   icon: IdCardIcon,
-    //   label: "Tạo phôi XMDT",
-    //   active: false,
-    // },
-    // {
-    //   key: "https://2fa.live/",
-    //   icon: ToolIcon,
-    //   label: "Tool 2FA",
-    //   active: false,
-    // },
   ]);
   const [listMenu4] = useState<MenuItemType[]>([
     {
@@ -205,13 +167,13 @@ const SideMenu = () => {
               <li className="mt-1 text-[15px] " key={value.key}>
                 <div
                   className={`p-[10px] pl-5     border-l-4   transition-all duration-300 ${_checkActiveTab(value)
-                    ? "bg-select-500 border-select-700"
+                    ? "bg-[#daf5f0] !text-[#02c39a]"
                     : ""
                     } w-full`}
                 >
                   <Link
                     href={`/${value.key}`}
-                    className={`flex transition-all  items-center  hover:font-workSansSemiBold  hover:px-2  ${_checkActiveTab(value) ? "text-select-700" : ""
+                    className={`flex transition-all  items-center  hover:font-workSansSemiBold  hover:px-2  ${_checkActiveTab(value) ? "text-[#02c39a]" : ""
                       }    duration-300 ${pathname === value.key
                         ? "text-dark-900 font-workSansSemiBold"
                         : "  font-workSansMedium text-dark-900"
@@ -232,44 +194,7 @@ const SideMenu = () => {
             );
           })}
         </div>
-        {authState && (
-          <div className=" border-b border-black border-opacity-10">
-            <p className="px-[10px] pl-5 mt-4 font-workSansSemiBold text-md  text-gray-600 ">
-              Tài khoản
-            </p>
-            {listMenu2.map((value, index) => {
-              return (
-                <li className="mt-1  text-[15px] " key={value.key}>
-                  <div
-                    className={`p-[10px] pl-5    border-l-4   transition-all duration-300  ${_checkActiveTab(value)
-                      ? "bg-select-500 border-select-700"
-                      : ""
-                      } w-full`}
-                  >
-                    <Link
-                      href={`/${value.key}`}
-                      className={`flex transition-all  items-center  hover:font-workSansSemiBold  hover:px-2  ${_checkActiveTab(value) ? "text-select-700" : ""
-                        }   duration-300 ${pathname === value.key
-                          ? "text-dark-900 font-workSansSemiBold"
-                          : "  font-workSansMedium text-dark-900"
-                        }`}
-                    >
-                      <Image
-                        src={value.icon}
-                        width={30}
-                        height={30}
-                        alt="home-bg"
-                        className=" size-7 mr-4   "
-                      />
-                      {/* {value.icon} */}
-                      {value.label}
-                    </Link>
-                  </div>
-                </li>
-              );
-            })}
-          </div>
-        )}
+
         <div className=" border-b border-black border-opacity-10">
           {/* <p className="px-[10px] pl-5 mt-4 font-workSansSemiBold text-md  text-gray-600 ">
             Công cụ

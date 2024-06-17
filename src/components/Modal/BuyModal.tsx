@@ -38,7 +38,6 @@ const BuyModal: FC<IBuyModal> = ({ isOpen, closeModal, data }) => {
     enabled: false,
   });
 
-  console.log("buyProductbuyProductbuyProduct", data.id);
   const onSubmit = async (e: any) => {
     setIsLoading(true);
     await buyProduct.refetch();

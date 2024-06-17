@@ -7,6 +7,7 @@ export interface LoginParamsType {
 
 export interface LoginResponseType extends BaseResponse {
   accessToken: string;
+  userId: string;
 }
 
 export interface AccountDetailResponse {
@@ -23,6 +24,7 @@ export interface AccountDetailResponse {
   total_amount: number;
   amount: number;
   payment_content: string;
+  userId:string;
 }
 
 export interface RegisterParamsType {

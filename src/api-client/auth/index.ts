@@ -28,7 +28,7 @@ class ApiAuth extends ApiClientBase {
   }
 
   /**
-   * confirm email
+   * confirm email123123@123123@123123@
    */
   public async confirmEmail(token: string, access_token: string): Promise<any> {
     const res = await this.instance.post(
@@ -74,10 +74,10 @@ class ApiAuth extends ApiClientBase {
     return res.data;
   }
 
-  public async getAccountExtendDetails(access_token: string): Promise<AccountDetailResponse> {
-    const res = await this.instance.get("/api/v1/users/get-all?", {
+  public async getAccountExtendDetails(accessToken: string, userId: string): Promise<AccountDetailResponse> {
+    const res = await this.instance.get(`/api/v1/users/${userId}`, {
       headers: {
-        Authorization: "Bearer " + access_token,
+        Authorization: "Bearer " + accessToken,
       },
     });
     return res.data;

@@ -15,7 +15,15 @@ import Contact2Icon from "./contact-2.png";
 import UserIcon from "./userIcon.png"
 import AdCode from "./adcode.png"
 import TeleGramIcon from "./telegram.png"
+import DashBoardIcon from "./dashboard.png"
+import ServiceIcon from "./service.png"
+import CampaignIcon from "./campain.png"
+import AdsSideBarIcon from "./adsSideBar.png"
 export {
+  CampaignIcon,
+  AdsSideBarIcon,
+  ServiceIcon,
+  DashBoardIcon,
   TeleGramIcon,
   FacebookIcon,
   AdsIcon,

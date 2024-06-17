@@ -7,7 +7,8 @@ import React, { FC, useContext, useEffect, useRef, useState } from "react";
 import Avatar from "../Avatar";
 
 interface IHeader {
-  title?: string;
+  title?: any;
+  data?: any;
 }
 
 type SideMenuMobile = {
@@ -34,6 +35,7 @@ const Header: FC<IHeader> = ({ title }) => {
     if (pathname.indexOf("client/profile") !== -1) return "Thông tin cá nhân";
     if (pathname.indexOf("/order/history") !== -1) return "Lịch sử giao dịch";
     if (pathname.indexOf("client/contact") !== -1) return "Liên hệ";
+    if (pathname.indexOf("client/service") !== -1) return "Dịch vụ khách hàng";
     if (title) return title;
     return "Home";
   };
@@ -93,13 +95,13 @@ const Header: FC<IHeader> = ({ title }) => {
     <div className='flex  justify-between  items-center w-full'>
       <div>
         <div className="flex gap-4">
-          <h1 className='font-workSansSemiBold text-[26px] max-lg:hidden'>{renderTitle()}
+          <h1 className='font-workSansSemiBold text-[26px] max-lg:hidden text-[#02c39a]'>{renderTitle()}
           </h1>
-          <p className="font-workSansSemiBold text-[16px] shadow-lg p-3 mt-[-5px] bg-gray-500 rounded-md">
-            Nhân viên
+          <p className="font-workSansSemiBold text-[16px] bg-[#daf5f0] text-[#02c39a] shadow-lg p-3 mt-[-5px]  rounded-md">
+            {title?.fullname}
           </p>
-          <p className="font-workSansSemiBold text-[16px] shadow-lg p-3 mt-[-5px] bg-gray-500 rounded-md">
-            blaze@okvip.com
+          <p className="font-workSansSemiBold text-[16px] bg-[#daf5f0] text-[#02c39a] shadow-lg p-3 mt-[-5px]  rounded-md">
+            {title?.email}
           </p>
         </div>
 

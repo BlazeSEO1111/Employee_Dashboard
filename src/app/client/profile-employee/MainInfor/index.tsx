@@ -1,75 +1,71 @@
-import { Button, Form, Input, Popconfirm } from 'antd'
-import React, { useState } from 'react'
+import { Button, Form, Input, Popconfirm, Spin } from 'antd'
+import React, { useContext, useState } from 'react'
+import { informationApi } from '../../../../api-client/index';
+import { useQuery } from '@tanstack/react-query';
+import { AuthContext } from '@/context/useAuthContext';
 
-const index = () => {
+const index = ({ information }: { information: any }) => {
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
+  const [form] = Form.useForm();
 
-  const showPopconfirm = () => {
-    setOpen(true);
+
+  const { handleLogOut, authState, accountExtendDetail, getAccountExtendDetails } = useContext(AuthContext);
+
+
+
+
+  const onFinish = async (values: any) => {
+
+    try {
+      const response = await informationApi.editInformPublisher(
+        authState?.accessToken ?? "",
+        authState?.userId ?? "",
+        values
+      );
+    } catch (error) {
+      console.error("API error:", error);
+    }
   };
 
-  const handleOk = () => {
-    setConfirmLoading(true);
-
-    setTimeout(() => {
-      setOpen(false);
-      setConfirmLoading(false);
-    }, 2000);
-  };
-
-  const handleCancel = () => {
-    console.log('Clicked cancel button');
-    setOpen(false);
-  };
   return (
-    <div className='flex flex-col gap-[50px]'>
-      <p>General</p>
-      <Form>
-        <div className='flex gap-4'>
-          <Form.Item className='flex-1'>
-            <Input placeholder='Email' />
+    !information ?
+      <Spin /> :
+      <div className='flex flex-col gap-[50px]'>
+        <p>General</p>
+        <Form
+          form={form}
+          onFinish={onFinish}
+          layout='vertical'
+          initialValues={{
+            email: information?.email,
+            username: information?.username,
+            phoneNumber: information?.phoneNumber,
+            fullname: information?.fullname,
+          }}
+        >
+          <div className='flex gap-4'>
+            <Form.Item className='flex-1' name="email" label="Email" rules={[{ type: 'email' }]}>
+              <Input placeholder='Email' />
+            </Form.Item>
+          </div>
+          <Form.Item className='flex-1' name="fullname" label="Full Name">
+            <Input placeholder='Full Name' />
+          </Form.Item>
+          <Form.Item className='flex-1' name="username" label="User Name">
+            <Input placeholder='User Name' />
+          </Form.Item>
+          <Form.Item className='flex-1' name="phoneNumber" label="Phone Number">
+            <Input placeholder="Phone Number" />
           </Form.Item>
           <Form.Item className='flex-1'>
-            <Input placeholder='First Name' />
-
-          </Form.Item>
-
-        </div>
-        <div className='flex gap-4'>
-          <Form.Item className='flex-1'>
-            <Input placeholder='Last Name' />
-          </Form.Item>
-          <Form.Item className='flex-1'>
-            <Input placeholder='Company Name' />
-          </Form.Item>
-
-        </div>
-        <div className='flex gap-4'>
-          <Form.Item className='flex-1'>
-            <Input placeholder='Website' />
-          </Form.Item>
-        </div>
-        <Form.Item className='flex-1'>
-          <Popconfirm
-            title=""
-            description={
-              <div>
-                <Input placeholder='password' className='rounded-lg' />
-              </div>
-            }
-            open={open}
-            onConfirm={handleOk}
-            okButtonProps={{ loading: confirmLoading }}
-            onCancel={handleCancel}
-          >
-            <Button type="primary" onClick={showPopconfirm}>
+            <Button type="primary" htmlType="submit">
               Update Profile
             </Button>
-          </Popconfirm>
-        </Form.Item>
-      </Form>
-    </div>
+          </Form.Item>
+        </Form>
+      </div>
+
   )
 }
 

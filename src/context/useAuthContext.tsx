@@ -21,9 +21,9 @@ export interface IAuthContext {
 export const AuthContext = React.createContext<IAuthContext>({
   authState: null,
   accountExtendDetail: null,
-  handleLogged: (authState?: LoginResponseType) => {},
-  handleLogOut: () => {},
-  getAccountExtendDetails: async () => {},
+  handleLogged: (authState?: LoginResponseType) => { },
+  handleLogOut: () => { },
+  getAccountExtendDetails: async () => { },
 });
 
 export const useAuthContext = (): IAuthContext => {
@@ -65,7 +65,7 @@ export const useAuthContext = (): IAuthContext => {
 
   const getAccountExtendDetails = async () => {
     try {
-      const accountData = await authApi.getAccountExtendDetails(authState?.accessToken ?? "");
+      const accountData = await authApi.getAccountExtendDetails(authState?.accessToken ?? "", authState?.userId ?? "");
       setAccountExtendDetail(accountData);
       return;
     } catch (error) {

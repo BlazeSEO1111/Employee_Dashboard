@@ -28,7 +28,7 @@ class ApiPayment extends ApiClientBase {
   }
 
   public async paymentHistory(accessToken: string): Promise<BaseResponse | any> {
-    const res = await this.instance.get(`/api/v1/users/get-all?`, {
+    const res = await this.instance.get(`/api/v1/users/`, {
       headers: {
         Authorization: "Bearer " + accessToken,
       },

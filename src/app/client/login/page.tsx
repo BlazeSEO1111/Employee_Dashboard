@@ -26,7 +26,7 @@ const Login: NextPage<any> = () => {
 
   useEffect(() => {
     if (authState) {
-      // router.push("/client/profile-employee");
+      router.push("/client/profile-employee");
     } else {
       console.log("not logined");
     }
@@ -36,12 +36,6 @@ const Login: NextPage<any> = () => {
     try {
       setIsLoading(true);
       let resLogin = await authApi.login({ email: data.email, password: data.password });
-      console.log("resLoginresLogin", resLogin);
-
-      if (resLogin.code == 999) {
-        setIsLoading(false);
-        return;
-      }
       handleLogged(resLogin.data);
       setIsLoading(false);
     } catch (error: any) {
