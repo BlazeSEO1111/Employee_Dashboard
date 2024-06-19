@@ -26,7 +26,6 @@ const index = () => {
 
   const handleChange = (value: string) => {
     setIdWebsite(value)
-    console.log(`selected ${value}`);
   };
 
   const handleFilterService = async () => {

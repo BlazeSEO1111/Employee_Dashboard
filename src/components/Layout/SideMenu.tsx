@@ -55,6 +55,12 @@ const SideMenu = () => {
       active: false,
     },
     {
+      key: "client/voucher",
+      icon: ServiceIcon,
+      label: "Voucher",
+      active: false,
+    },
+    {
       key: "client/ad-codes",
       icon: AdsSideBarIcon,
       label: "Mã Quảng Cáo",

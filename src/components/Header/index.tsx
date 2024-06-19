@@ -36,6 +36,7 @@ const Header: FC<IHeader> = ({ title }) => {
     if (pathname.indexOf("/order/history") !== -1) return "Lịch sử giao dịch";
     if (pathname.indexOf("client/contact") !== -1) return "Liên hệ";
     if (pathname.indexOf("client/service") !== -1) return "Dịch vụ khách hàng";
+    if (pathname.indexOf("client/voucher") !== -1) return "Voucher";
     if (title) return title;
     return "Home";
   };
@@ -90,6 +91,7 @@ const Header: FC<IHeader> = ({ title }) => {
       isChildren: true,
     },
   ];
+
 
   return (
     <div className='flex  justify-between  items-center w-full'>
