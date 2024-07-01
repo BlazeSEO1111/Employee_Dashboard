@@ -9,14 +9,9 @@ const index = ({ information }: { information: any }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [form] = Form.useForm();
 
-
   const { handleLogOut, authState, accountExtendDetail, getAccountExtendDetails } = useContext(AuthContext);
 
-
-
-
   const onFinish = async (values: any) => {
-
     try {
       const response = await informationApi.editInformPublisher(
         authState?.accessToken ?? "",
@@ -32,7 +27,6 @@ const index = ({ information }: { information: any }) => {
     !information ?
       <Spin /> :
       <div className='flex flex-col gap-[50px]'>
-        <p>General</p>
         <Form
           form={form}
           onFinish={onFinish}
@@ -57,6 +51,9 @@ const index = ({ information }: { information: any }) => {
           </Form.Item>
           <Form.Item className='flex-1' name="phoneNumber" label="Phone Number">
             <Input placeholder="Phone Number" />
+          </Form.Item>
+          <Form.Item className='flex-1' name="telegram" label="Telegram">
+            <Input placeholder="Telegram" />
           </Form.Item>
           <Form.Item className='flex-1'>
             <Button type="primary" htmlType="submit">
