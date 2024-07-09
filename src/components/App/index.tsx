@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import { productApi } from "@/api-client";
 import { AuthContext } from "@/context/useAuthContext";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 interface AppContentTypes {
   listItemsProps?: any[];
   totalCountProps?: string;
@@ -40,6 +41,7 @@ const AppContent: FC<AppContentTypes> = () => {
   const [dataBuy, setDataBuy] = useState<ItemType>({} as ItemType);
   const { handleLogged, authState } = useContext(AuthContext);
   const router = useRouter();
+  const t = useTranslations("Index");
 
   const buyModal = (item: ItemType) => {
     if (authState) {
@@ -168,31 +170,12 @@ const AppContent: FC<AppContentTypes> = () => {
     );
   };
 
-  const HomeHeading: React.FC<{ title: string }> = ({ title }) => {
-    return (
-      <div className=' font-workSansSemiBold bg-gradient-to-r flex  py-3   rounded-md text-white from-[#F25FA2] to-[#3279E1] text-xl my-4 pl-3'>
-        <Image src={FacebookIcon} width={30} height={30} alt='home-bg' className=' size-7 mr-4   ' />
-        <span> {title}</span>
-      </div>
-    );
-  };
-
-  const ListItem: React.FC<{ title: string }> = ({ title }) => {
-    return (
-      <div className=' font-workSansSemiBold bg-gradient-to-r flex  py-3   rounded-md text-white from-[#F25FA2] to-[#3279E1] text-xl my-4 pl-3'>
-        <Image src={FacebookIcon} width={30} height={30} alt='home-bg' className=' size-7 mr-4   ' />
-        <span> {title}</span>
-      </div>
-    );
-  };
 
   return (
     <div className='w-full relative '>
       <div className=' flex flex-col w-full px-2 gap-x-8'>
         <div>
-          {/* {homeHeading("Mặt Hàng Bán Chạy")} */}
-          <HomeHeading title='Mặt Hàng Bán Chạy' />
-          <HomeHeading title='Mặt Hàng Limit Cao + Ngưỡng' />
+          Sign up1111 {t("title")}
 
           <div className=' grid  grid-cols-3  max-sm:grid-cols-1 max-md:grid-cols-2  gap-x-6  gap-y-10  '>
             {data
@@ -201,7 +184,6 @@ const AppContent: FC<AppContentTypes> = () => {
                 <div key={index} className='flex w-full  bg-white text-sm    border shadow-md rounded-md'>
                   <div className='flex w-full  flex-col '>
                     <div className=' bg-[#ebebeb] border-b-2 flex py-4 items-center px-2'>
-                      {/* <FireIcon className="h-5 w-5 mr-2" /> */}
                       <Image
                         src={IconCountry(item.nation)}
                         width={40}
@@ -274,7 +256,6 @@ const AppContent: FC<AppContentTypes> = () => {
                         </p>
                       </button>
                     </div>
-
                     <div className='py-2 flex justify-center mb-4 '>
                       <button className='w-[95%]' onClick={() => buyModal(item)}>
                         <p className=' bg-blue-500 font-extrabold text-lg border  px-8 py-2 border-slate-400 rounded-md flex items-center justify-center text-white	'>
@@ -286,14 +267,7 @@ const AppContent: FC<AppContentTypes> = () => {
                 </div>
               ))}
           </div>
-
-          <HomeHeading title='Mặt Hàng Limit Cao + Ngưỡng' />
-
-          <HomeHeading title='BM' />
         </div>
-
-        {/* Footer  */}
-
         <FooterMenu />
       </div>
       {isOpenBuyModal && (

@@ -3,8 +3,6 @@ import Header from '@/components/Header'
 import AppLayout from '@/components/Layout/AppLayout'
 import React, { useContext, useEffect, useState } from 'react'
 import { Tabs } from 'antd';
-import Notification from "./Notification/index"
-import MainInfor from './MainInfor';
 import { informationApi, notificationApi, paymentApi } from '@/api-client';
 import { AuthContext } from '@/context/useAuthContext';
 import { useQuery } from '@tanstack/react-query';
@@ -30,12 +28,10 @@ const ProfileEmployee = () => {
     {
       key: '1',
       label: 'Thông tin',
-      children: <MainInfor information={data} />,
     },
     {
       key: '2',
       label: 'Thông báo',
-      children: <Notification dataNotification={dataNotification} />,
     },
   ];
 
@@ -57,18 +53,12 @@ const ProfileEmployee = () => {
 
 
   return (
-
     <AppLayout>
       <div className="w-full  h-screen flex flex-col">
         <div className="p-6">
           <Header title={data} />
-          <div><span className='text-blue-600 font-semibold'>Trạng thái tài khoản</span> : {renderStatusProfile(statusProfile)}</div>
-          <div className='flex flex-col gap-3 mt-2'>
-            <p className='text-blue-600 font-semibold'>Quyền tài khoản:</p>
-            <p className='text-green-600 font-semibold'>Sale</p>
-          </div>
           <div className="h-[1px] bg-black  bg-opacity-20 my-4 max-lg:hidden" >
-            <Tabs defaultActiveKey="1" items={items} />
+
           </div>
         </div>
       </div>

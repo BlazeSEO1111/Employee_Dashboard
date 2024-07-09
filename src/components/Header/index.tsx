@@ -5,7 +5,10 @@ import { Bars3Icon, FolderIcon, HeartIcon, XMarkIcon } from "@heroicons/react/24
 import { useRouter, usePathname } from "next/navigation";
 import React, { FC, useContext, useEffect, useRef, useState } from "react";
 import Avatar from "../Avatar";
-
+import {
+  ShoppingCartOutlined
+} from '@ant-design/icons';
+import { useTranslations } from "next-intl";
 interface IHeader {
   title?: any;
   data?: any;
@@ -24,11 +27,11 @@ const Header: FC<IHeader> = ({ title }) => {
   const router = useRouter();
   let searchRef: React.MutableRefObject<any> = useRef();
   const [openSeachMobile, setOpenSearchMobile] = useState(false);
+  // const t = useTranslations("Index");
 
   const [openMenuMobile, setOpenMenuMobile] = useState(false);
   const pathname = usePathname();
   const { authState } = useContext(AuthContext);
-
   const renderTitle = () => {
     if (pathname === "/alpha-hunters/mentioned") return "Projects Mentioned by Top Alpha Hunters";
     if (pathname.indexOf("client/recharge") !== -1) return "Nạp Tiền";
@@ -37,6 +40,7 @@ const Header: FC<IHeader> = ({ title }) => {
     if (pathname.indexOf("client/contact") !== -1) return "Liên hệ";
     if (pathname.indexOf("client/service") !== -1) return "Dịch vụ khách hàng";
     if (pathname.indexOf("client/voucher") !== -1) return "Voucher";
+    if (pathname.indexOf("client/card") !== -1) return "Mua hàng";
     if (title) return title;
     return "Home";
   };
@@ -141,18 +145,6 @@ const Header: FC<IHeader> = ({ title }) => {
       </div>
 
       <div className='flex justify-center items-center'>
-        {/* <div className='relative mr-6 max-lg:mr-2 ml-4 max-lg:hidden' ref={searchRef}>
-          <MagnifyingGlassIcon className='w-5 h-5 max-lg:w-4 max-lg:h-4  absolute max-lg:top-[6px] top-[11px] left-[5px]' />
-
-          <input
-            className='w-52 max-lg:w-32 max-lg:py-1   py-2 pl-8 max-lg:pl-7 max-lg:text-sm '
-            placeholder='Search'
-            value={searchString}
-            onChange={(e) => {
-              setSearchString(e?.target?.value);
-            }}
-          />
-        </div> */}
         <div className='hidden max-lg:block'>
           {openSeachMobile ? (
             <div className='fixed h-screen bg-white  z-[1000] top-0 left-0 w-full flex flex-col gap-4 px-6 pt-6'>
@@ -166,12 +158,6 @@ const Header: FC<IHeader> = ({ title }) => {
                   onChange={(e) => {
                     setSearchString(e?.target?.value);
                   }}
-                // onKeyPress={(event) => {
-                //   if (event.key === "Enter" && event.currentTarget.value) {
-                //     setKeyword(event.currentTarget.value ?? "");
-                //     router.push("/search?keyword=" + event.currentTarget.value);
-                //   }
-                // }}
                 />
               </div>
             </div>
@@ -185,12 +171,10 @@ const Header: FC<IHeader> = ({ title }) => {
             />
           )}
         </div>
-        {/* 
-        <button id="search-btn">
-          <MagnifyingGlassIcon className="w-5 h-5 text-white hidden max-lg:block" />
-        </button> */}
         {authState ? (
-          <Avatar isShowRole />
+          <div className="hover:cursor-pointer" onClick={() => { router.push("/client/card"); }}>
+            <ShoppingCartOutlined className="text-[30px]" />
+          </div>
         ) : (
           <div className='flex'>
             <div className='  max-lg:mx-0'>
@@ -201,10 +185,9 @@ const Header: FC<IHeader> = ({ title }) => {
             <div className='max-lg:mx-0'>
               <a href='/client/register'>
                 <button
-                  // onClick={onGoSignup}
                   className='py-2 px-4  font-workSansSemiBold text-sm  '
                 >
-                  Sign up
+                  {/* Sign up1111 {t("title")} */}
                 </button>
               </a>
             </div>

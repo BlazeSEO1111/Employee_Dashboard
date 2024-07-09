@@ -1,8 +1,8 @@
 import { Button, Form, Input, Popconfirm, Spin } from 'antd'
 import React, { useContext, useState } from 'react'
-import { informationApi } from '../../../../api-client/index';
 import { useQuery } from '@tanstack/react-query';
 import { AuthContext } from '@/context/useAuthContext';
+import { informationApi } from '@/api-client';
 
 const index = ({ information }: { information: any }) => {
   const [open, setOpen] = useState(false);
