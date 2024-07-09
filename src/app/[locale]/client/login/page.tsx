@@ -55,12 +55,7 @@ const Login: NextPage<any> = () => {
             <h1 className='font-workSansSemiBold text-[32px]'>Log in</h1>
 
             <BMForm defaultValues={{}} onSubmit={onSubmit} validationSchemaParams={loginValidationSchema}>
-              <BMInput
-                name='email'
-                labelText='Tên đăng nhập'
-                placeholder='Enter username'
-                containerClassName='mt-4 '
-              />
+              <BMInput name='email' labelText='Tên đăng nhập' placeholder='Enter username' containerClassName='mt-4 ' />
               <BMInput
                 name='password'
                 labelText='Mật khẩu'
@@ -71,8 +66,9 @@ const Login: NextPage<any> = () => {
 
               <button
                 type='submit'
-                className={`w-full mb-6 ${isLoading ? "opacity-70" : "opacity-100"
-                  } flex justify-center items-center py-3 mt-5 bg-success-500`}
+                className={`w-full mb-6 ${
+                  isLoading ? "opacity-70" : "opacity-100"
+                } flex justify-center items-center py-3 mt-5 bg-success-500`}
                 disabled={isLoading}
               >
                 {isLoading ? <Spinner /> : null}

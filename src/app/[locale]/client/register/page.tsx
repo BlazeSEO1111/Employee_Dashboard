@@ -52,7 +52,7 @@ const Login: NextPage<any> = () => {
       }
       toast.success(resR.message, { autoClose: 4000 });
       let resLogin = await authApi.login({
-        username: data.username,
+        email: data.username,
         password: data.password,
       });
       router.push("/client/profile");

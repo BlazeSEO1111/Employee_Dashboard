@@ -27,7 +27,7 @@ const Header: FC<IHeader> = ({ title }) => {
   const router = useRouter();
   let searchRef: React.MutableRefObject<any> = useRef();
   const [openSeachMobile, setOpenSearchMobile] = useState(false);
-  // const t = useTranslations("Index");
+  const t = useTranslations("Index");
 
   const [openMenuMobile, setOpenMenuMobile] = useState(false);
   const pathname = usePathname();
@@ -187,7 +187,7 @@ const Header: FC<IHeader> = ({ title }) => {
                 <button
                   className='py-2 px-4  font-workSansSemiBold text-sm  '
                 >
-                  {/* Sign up1111 {t("title")} */}
+                  Sign up1111 {t("title")}
                 </button>
               </a>
             </div>

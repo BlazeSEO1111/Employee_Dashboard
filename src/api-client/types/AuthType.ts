@@ -24,7 +24,7 @@ export interface AccountDetailResponse {
   total_amount: number;
   amount: number;
   payment_content: string;
-  userId:string;
+  userId: string;
 }
 
 export interface RegisterParamsType {

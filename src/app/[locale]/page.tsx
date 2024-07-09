@@ -21,18 +21,18 @@ const Home: NextPage<any> = ({
 }) => {
   const messages = useMessages();
   return (
-    // <NextIntlClientProvider locale={locale} messages={messages}>
-    <AppLayout>
-      <div className='w-full flex flex-col'>
-        <div className='p-2  '>
-          <Header />
-          <div className='h-[1px] bg-black  bg-opacity-20 my-4 max-lg:hidden' />
-          WELCOME
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      <AppLayout>
+        <div className='w-full flex flex-col'>
+          <div className='p-2  '>
+            <Header />
+            <div className='h-[1px] bg-black  bg-opacity-20 my-4 max-lg:hidden' />
+            WELCOME
+          </div>
+          <AppContent />
         </div>
-        <AppContent />
-      </div>
-    </AppLayout>
-    // </NextIntlClientProvider>
+      </AppLayout>
+    </NextIntlClientProvider>
   );
 };
 

@@ -58,6 +58,7 @@ const index = () => {
     queryFn: async () => await informationApi.getInformPublisher(authState?.accessToken ?? "", authState?.userId ?? ""),
   });
 
+
   const { isLoading: isLoadingNotification, error: errorNotification, data: dataWebsite } = useQuery<any>({
     queryKey: ["getDataNotification", authState?.accessToken],
     queryFn: async () => await serviceApi.getInformWebsite(authState?.accessToken ?? ""),
@@ -73,8 +74,7 @@ const index = () => {
         authState?.accessToken ?? "",
         idWebsite ?? ""
       );
-      setDataService(response)
-      console.log("response", response);
+      setDataService(response.userConfig)
     } catch (error) {
       console.error("API error:", error);
     }
@@ -161,6 +161,7 @@ const index = () => {
       with: "20%",
       render: (text: any, record: any) => {
         console.log("record", record);
+        console.log("record", record.fullname);
         return (
           <div className='"flex gap-[20px] w-full justify-center items-center' >
             <Button style={{ background: "#24b592" }} className='mr-3' onClick={showModalViewInformDetail}><FundViewOutlined /> Xem thông tin </Button>
@@ -169,7 +170,7 @@ const index = () => {
               <div className='w-full'>
                 <div className='flex gap-5 w-full justify-between mb-4'>
                   <div>
-                    <p>Name : </p>
+                    <p className='font-semibold text-2xl'>{record.user.fullname}</p>
                     <div className='flex gap-2'>
                       <p>Đánh giá nhà cung cấp:</p>
                       <Rate allowHalf defaultValue={2.5} />
