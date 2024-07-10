@@ -14,6 +14,7 @@ import {
   MinusCircleOutlined,
   PlusCircleOutlined
 } from '@ant-design/icons';
+import { toast } from 'react-toastify'
 
 const index = () => {
   const [idWebsite, setIdWebsite] = useState<string>()
@@ -46,6 +47,7 @@ const index = () => {
         authState?.accessToken ?? "",
         value ?? ""
       );
+      toast.success("Thêm vào giỏ hàng thành công.")
       setDataService(response.userConfig)
     } catch (error) {
       console.error("API error:", error);
@@ -90,9 +92,7 @@ const index = () => {
     }
   }
 
-  const handleApprove = async (id: string) => {
-    const res = await fetch(`http://localhost:8192/api/v1/userConfig/${id}`)
-  }
+
   const dataChart = [
     {
       name: 'Page A',
@@ -273,8 +273,7 @@ const index = () => {
                 <div><span className='text-[20px] font-semibold'>Tổng tiền:</span> <span className='text-yellow-500 font-semibold text-[20px]'>{record.cost * value}</span></div>
               </div>
             </Modal>
-            <Button type='primary' className='mr-3' onClick={() => handleApprove(record.id)}>Duyệt</Button>
-            <Button type='primary' danger >Reject</Button>
+
           </div >
         )
 

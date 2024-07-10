@@ -8,6 +8,8 @@ import "./globals.css";
 import TanstackProvider from "@/components/TanstackProvider";
 import ContextConsumer from "@/context";
 import SideMenu from "@/components/Layout/SideMenu";
+import { useContext } from "react";
+import { AuthContext } from "@/context/useAuthContext";
 
 type Props = {
   children: React.ReactNode;
@@ -34,7 +36,6 @@ export default async function AppLayout({ children, params: { locale } }: Readon
                 transition={Slide}
               />
             </NextIntlClientProvider>
-            {/* <Foooter /> */}
           </TanstackProvider>
         </ContextConsumer>
       </body>

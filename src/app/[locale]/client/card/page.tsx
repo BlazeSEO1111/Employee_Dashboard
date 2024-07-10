@@ -9,7 +9,7 @@ const ProfileEmployee = () => {
       <div className='w-full  h-screen flex flex-col'>
         <div className='p-6'>
           {/* <Header title={data} /> */}
-          <div className='h-[1px] bg-black  bg-opacity-20 my-4 max-lg:hidden'>{t("title")}</div>
+          {/* <div className='h-[1px] bg-black  bg-opacity-20 my-4 max-lg:hidden'>{t("title")}</div> */}
         </div>
       </div>
     </AppLayout>

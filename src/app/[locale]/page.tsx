@@ -6,6 +6,7 @@ import { NextPage } from "next";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { NextIntlClientProvider, useMessages } from "next-intl";
+import Login from "./client/login/page";
 
 export const metadata: Metadata = {
   title: "Employee Dashboard",
@@ -22,16 +23,7 @@ const Home: NextPage<any> = ({
   const messages = useMessages();
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      <AppLayout>
-        <div className='w-full flex flex-col'>
-          <div className='p-2  '>
-            <Header />
-            <div className='h-[1px] bg-black  bg-opacity-20 my-4 max-lg:hidden' />
-            WELCOME
-          </div>
-          <AppContent />
-        </div>
-      </AppLayout>
+      <Login />
     </NextIntlClientProvider>
   );
 };

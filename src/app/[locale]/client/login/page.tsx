@@ -50,7 +50,7 @@ const Login: NextPage<any> = () => {
           <Header title='Login' />
           <div className='h-[1px] bg-black   bg-opacity-20 my-4 max-lg:hidden' />
         </div>
-        <div className=' flex    bg-[#E9F2FD] items-center   justify-center'>
+        <div className=' flex    items-center   justify-center'>
           <div className='w-[580px] shadow-2xl rounded-lg bg-white mt-4  max-md:bg-transparent max-md:p-6 max-lg:p-8 p-10 z-[100]'>
             <h1 className='font-workSansSemiBold text-[32px]'>Log in</h1>
 
@@ -66,9 +66,8 @@ const Login: NextPage<any> = () => {
 
               <button
                 type='submit'
-                className={`w-full mb-6 ${
-                  isLoading ? "opacity-70" : "opacity-100"
-                } flex justify-center items-center py-3 mt-5 bg-success-500`}
+                className={`w-full mb-6 ${isLoading ? "opacity-70" : "opacity-100"
+                  } flex justify-center items-center py-3 mt-5 bg-success-500`}
                 disabled={isLoading}
               >
                 {isLoading ? <Spinner /> : null}

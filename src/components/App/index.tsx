@@ -175,8 +175,6 @@ const AppContent: FC<AppContentTypes> = () => {
     <div className='w-full relative '>
       <div className=' flex flex-col w-full px-2 gap-x-8'>
         <div>
-          Sign up1111 {t("title")}
-
           <div className=' grid  grid-cols-3  max-sm:grid-cols-1 max-md:grid-cols-2  gap-x-6  gap-y-10  '>
             {data
               ?.filter((item) => item.categories_id === 5)

@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react'
 import { useQuery } from '@tanstack/react-query';
 import { AuthContext } from '@/context/useAuthContext';
 import { informationApi } from '@/api-client';
+import { toast } from 'react-toastify';
 
 const index = ({ information }: { information: any }) => {
   const [open, setOpen] = useState(false);
@@ -18,6 +19,7 @@ const index = ({ information }: { information: any }) => {
         authState?.userId ?? "",
         values
       );
+      toast.success("Cập nhật thông tin thành công.")
     } catch (error) {
       console.error("API error:", error);
     }

@@ -100,15 +100,22 @@ const Header: FC<IHeader> = ({ title }) => {
   return (
     <div className='flex  justify-between  items-center w-full'>
       <div>
+
         <div className="flex gap-4">
           <h1 className='font-workSansSemiBold text-[26px] max-lg:hidden text-[#02c39a]'>{renderTitle()}
           </h1>
-          <p className="font-workSansSemiBold text-[16px] bg-[#daf5f0] text-[#02c39a] shadow-lg p-3 mt-[-5px]  rounded-md">
-            {title?.fullname}
-          </p>
-          <p className="font-workSansSemiBold text-[16px] bg-[#daf5f0] text-[#02c39a] shadow-lg p-3 mt-[-5px]  rounded-md">
-            {title?.email}
-          </p>
+          {title && authState?.accessToken ?
+            <div className="flex gap-2">
+              <p className="font-workSansSemiBold text-[16px] bg-[#daf5f0] text-[#02c39a] shadow-lg p-3 mt-[-5px]  rounded-md">
+                {title?.fullname}
+              </p>
+              <p className="font-workSansSemiBold text-[16px] bg-[#daf5f0] text-[#02c39a] shadow-lg p-3 mt-[-5px]  rounded-md">
+                {title?.email}
+              </p>
+            </div> :
+            <></>
+          }
+
         </div>
 
         <div className='hidden max-lg:block'>
@@ -182,15 +189,14 @@ const Header: FC<IHeader> = ({ title }) => {
                 <button className='py-2 px-4  border  text-sm  font-workSansSemiBold border-[#00e3b4]   '>Login</button>
               </a>
             </div>
-            <div className='max-lg:mx-0'>
+            {/* <div className='max-lg:mx-0'>
               <a href='/client/register'>
                 <button
                   className='py-2 px-4  font-workSansSemiBold text-sm  '
                 >
-                  Sign up1111 {t("title")}
                 </button>
               </a>
-            </div>
+            </div> */}
           </div>
         )}
       </div>

@@ -66,12 +66,6 @@ const SideMenu = () => {
       label: "Mã Quảng Cáo",
       active: false,
     },
-    {
-      key: "client/campaign",
-      icon: CampaignIcon,
-      label: "Campain",
-      active: false,
-    },
 
     // {
     //   key: "client/service",
@@ -136,6 +130,11 @@ const SideMenu = () => {
     return false;
   };
 
+  const handleLogOut = () => {
+    localStorage.clear();
+    window.location.href = '/';
+  };
+  if (!authState?.accessToken) return <></>
   return (
     <aside className="fixed transition-all bg-white  overflow-auto  duration-300 top-0 left-0 z-40 w-80 h-screen border-r border-black  border-opacity-10  py-6 max-lg:hidden">
       <ul className="w-full    ">
@@ -164,151 +163,138 @@ const SideMenu = () => {
             )}
           </div>
         </li>
-        <div className=" border-b border-black border-opacity-10">
-          <p className="px-[10px] pl-5  font-workSansSemiBold text-sm text-gray-600 ">
-            Hệ thống
-          </p>
-          {listMenu.map((value, index) => {
-            return (
-              <li className="mt-1 text-[15px] " key={value.key}>
-                <div
-                  className={`p-[10px] pl-5     border-l-4   transition-all duration-300 ${_checkActiveTab(value)
-                    ? "bg-[#daf5f0] !text-[#02c39a]"
-                    : ""
-                    } w-full`}
-                >
-                  <Link
-                    href={`/${value.key}`}
-                    className={`flex transition-all  items-center  hover:font-workSansSemiBold  hover:px-2  ${_checkActiveTab(value) ? "text-[#02c39a]" : ""
-                      }    duration-300 ${pathname === value.key
-                        ? "text-dark-900 font-workSansSemiBold"
-                        : "  font-workSansMedium text-dark-900"
-                      }`}
-                  >
-                    <Image
-                      src={value.icon}
-                      width={30}
-                      height={30}
-                      alt="home-bg"
-                      className=" size-7 mr-4   "
-                    />
-                    {/* {value.icon} */}
-                    {value.label}
-                  </Link>
-                </div>
-              </li>
-            );
-          })}
-        </div>
-
-        <div className=" border-b border-black border-opacity-10">
-          {/* <p className="px-[10px] pl-5 mt-4 font-workSansSemiBold text-md  text-gray-600 ">
+        {authState?.accessToken ?
+          <>
+            <div className=" border-b border-black border-opacity-10">
+              <p className="px-[10px] pl-5  font-workSansSemiBold text-sm text-gray-600 ">
+                Hệ thống
+              </p>
+              {listMenu.map((value, index) => {
+                return (
+                  <li className="mt-1 text-[15px] " key={value.key}>
+                    <div
+                      className={`p-[10px] pl-5     border-l-4   transition-all duration-300 ${_checkActiveTab(value)
+                        ? "bg-[#daf5f0] !text-[#02c39a]"
+                        : ""
+                        } w-full`}
+                    >
+                      <Link
+                        href={`/${value.key}`}
+                        className={`flex transition-all  items-center  hover:font-workSansSemiBold  hover:px-2  ${_checkActiveTab(value) ? "text-[#02c39a]" : ""
+                          }    duration-300 ${pathname === value.key
+                            ? "text-dark-900 font-workSansSemiBold"
+                            : "  font-workSansMedium text-dark-900"
+                          }`}
+                      >
+                        <Image
+                          src={value.icon}
+                          width={30}
+                          height={30}
+                          alt="home-bg"
+                          className=" size-7 mr-4   "
+                        />
+                        {/* {value.icon} */}
+                        {value.label}
+                      </Link>
+                    </div>
+                  </li>
+                );
+              })}
+            </div>
+            <div className=" border-b border-black border-opacity-10">
+              {/* <p className="px-[10px] pl-5 mt-4 font-workSansSemiBold text-md  text-gray-600 ">
             Công cụ
           </p> */}
-          {listMenu3.map((value, index) => {
-            return (
-              <li className="mt-1  text-[15px] " key={index}>
-                <div
-                  className={`p-[10px] pl-5    border-l-4   transition-all duration-300  ${_checkActiveTab(value)
-                    ? "bg-select-500 border-select-700"
-                    : ""
-                    } w-full`}
-                >
-                  <Link
-                    href={`${value.key}`}
-                    className={`flex transition-all  items-center  hover:font-workSansSemiBold  hover:px-2  ${_checkActiveTab(value) ? "text-select-700" : ""
-                      }   duration-300 ${pathname === value.key
-                        ? "text-dark-900 font-workSansSemiBold"
-                        : "  font-workSansMedium text-dark-900"
-                      }`}
-                  >
-                    <Image
-                      src={value.icon}
-                      width={30}
-                      height={30}
-                      alt="home-bg"
-                      className=" size-7 mr-4   "
-                    />
-                    {/* {value.icon} */}
-                    {value.label}
-                  </Link>
+              {listMenu3.map((value, index) => {
+                return (
+                  <li className="mt-1  text-[15px] " key={index}>
+                    <div
+                      className={`p-[10px] pl-5    border-l-4   transition-all duration-300  ${_checkActiveTab(value)
+                        ? "bg-select-500 border-select-700"
+                        : ""
+                        } w-full`}
+                    >
+                      <Link
+                        href={`${value.key}`}
+                        className={`flex transition-all  items-center  hover:font-workSansSemiBold  hover:px-2  ${_checkActiveTab(value) ? "text-select-700" : ""
+                          }   duration-300 ${pathname === value.key
+                            ? "text-dark-900 font-workSansSemiBold"
+                            : "  font-workSansMedium text-dark-900"
+                          }`}
+                      >
+                        <Image
+                          src={value.icon}
+                          width={30}
+                          height={30}
+                          alt="home-bg"
+                          className=" size-7 mr-4   "
+                        />
+                        {/* {value.icon} */}
+                        {value.label}
+                      </Link>
+                    </div>
+                  </li>
+                );
+              })}
+            </div>
+            <div className="   border-black border-opacity-10  pl-5">
+              <p className="px-[10px] mt-4 font-workSansSemiBold text-md  text-gray-600 ">
+                Liên hệ
+              </p>
+              <div className="flex flex-col gap-5 mt-5">
+                <div className="flex gap-3">
+                  <SkypeOutlined />
+                  <p>live:.cid.5bed127eed70c63b</p>
                 </div>
-              </li>
-            );
-          })}
-        </div>
-        <div className="   border-black border-opacity-10  pl-5">
-          <p className="px-[10px] mt-4 font-workSansSemiBold text-md  text-gray-600 ">
-            Liên hệ
-          </p>
-          <div className="flex flex-col gap-5 mt-5">
-            <div className="flex gap-3">
-              <SkypeOutlined />
-              <p>live:.cid.5bed127eed70c63b</p>
-            </div>
-            <div className="flex gap-3 items-center">
-              <Image src={TeleGramIcon} alt="telegram" width={15} height={3} className="w-[15px] h-[15px]" />
-              <p>max_clickAD</p>
-            </div>
-            <div className="flex gap-3">
-              <MailOutlined />
-              <p>maxevdok@clickadilla.com</p>
-            </div>
-          </div>
+                <div className="flex gap-3 items-center">
+                  <Image src={TeleGramIcon} alt="telegram" width={15} height={3} className="w-[15px] h-[15px]" />
+                  <p>max_clickAD</p>
+                </div>
+                <div className="flex gap-3">
+                  <MailOutlined />
+                  <p>maxevdok@clickadilla.com</p>
+                </div>
+              </div>
+              {listMenu4.map((value, index) => {
+                return (
+                  <li className="mt-1  text-[15px] " key={value.key}>
+                    <div
+                      className={`p-[10px] pl-5    border-l-4   transition-all duration-300  ${_checkActiveTab(value)
+                        ? "bg-select-500 border-select-700"
+                        : ""
+                        } w-full`}
+                    >
+                      <Link
+                        href={`/${value.key}`}
+                        className={`flex transition-all  items-center  hover:font-workSansSemiBold  hover:px-2  ${_checkActiveTab(value) ? "text-select-700" : ""
+                          }   duration-300 ${pathname === value.key
+                            ? "text-dark-900 font-workSansSemiBold"
+                            : "  font-workSansMedium text-dark-900"
+                          }`}
+                      >
+                        <Image
+                          src={value.icon}
+                          width={30}
+                          height={30}
+                          alt="home-bg"
+                          className=" size-7 mr-4   "
+                        />
+                        {/* {value.icon} */}
+                        {value.label}
+                      </Link>
+                    </div>
+                  </li>
+                );
+              })}
+              {authState?.accessToken ? <div onClick={handleLogOut} className="font-semibold text-[30px] text-red-500 hover:cursor-pointer">LOGOUT</div> : <></>}
 
-          {listMenu4.map((value, index) => {
-            return (
-              <li className="mt-1  text-[15px] " key={value.key}>
-                <div
-                  className={`p-[10px] pl-5    border-l-4   transition-all duration-300  ${_checkActiveTab(value)
-                    ? "bg-select-500 border-select-700"
-                    : ""
-                    } w-full`}
-                >
-                  <Link
-                    href={`/${value.key}`}
-                    className={`flex transition-all  items-center  hover:font-workSansSemiBold  hover:px-2  ${_checkActiveTab(value) ? "text-select-700" : ""
-                      }   duration-300 ${pathname === value.key
-                        ? "text-dark-900 font-workSansSemiBold"
-                        : "  font-workSansMedium text-dark-900"
-                      }`}
-                  >
-                    <Image
-                      src={value.icon}
-                      width={30}
-                      height={30}
-                      alt="home-bg"
-                      className=" size-7 mr-4   "
-                    />
-                    {/* {value.icon} */}
-                    {value.label}
-                  </Link>
-                </div>
-              </li>
-            );
-          })}
-        </div>
+            </div>
+          </>
+          :
+          <></>
+        }
       </ul>
-      {/* <div className="absolute  bg-white left-0 bottom-0 border-t border-black border-opacity-10 w-full px-6 pt-4 pb-6">
-        <ul>
-          <li className="mt-2">
-            <Link href={"https://twitter.com/"} target="_blank">
-              Twitter
-            </Link>
-          </li>
 
-          <li className="mt-2">
-            <Link href={"https://t.me/imhuy"} target="_blank">
-              Support
-            </Link>
-          </li>
-          <li className="mt-2">
-            <Link href={"https://discord.gg/"} target="_blank">
-              Discord
-            </Link>
-          </li>
-        </ul>
-      </div> */}
     </aside>
   );
 };

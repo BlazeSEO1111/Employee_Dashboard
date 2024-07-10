@@ -54,7 +54,12 @@ const ProfileEmployee = () => {
     }
   }
 
-
+  if (!authState?.accessToken) return
+  <>
+    <AppLayout>
+      <div>Vui lòng đăng nhập </div>
+    </AppLayout>
+  </>
 
   return (
 
