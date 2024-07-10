@@ -39,9 +39,9 @@ class ApiService extends ApiClientBase {
     }
   }
 
-  public async approveService(accessToken: string, userId: string): Promise<BaseResponse | any> {
+  public async approveService(accessToken: string, cardId: string): Promise<BaseResponse | any> {
     try {
-      const res = await this.instance.post(`/api/v1/userConfig/${userId}`, {
+      const res = await this.instance.post(`/api/v1/userConfig/add-to-cart/${cardId}`, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
@@ -52,6 +52,7 @@ class ApiService extends ApiClientBase {
       throw error;
     }
   }
+
 
 }
 export default ApiService;

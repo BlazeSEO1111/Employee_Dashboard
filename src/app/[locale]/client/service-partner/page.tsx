@@ -20,13 +20,13 @@ const index = () => {
   const [dataService, setDataService] = useState<any>()
   const [isModalShowInformOpen, setIsModalShowInformOpen] = useState(false);
   const [value, setValue] = useState(0);
+
   const [isModalShowModalAddToCartOpen, setIsModalShowModalAddToCartOpen] = useState(false);
   const [isAddToCart, setIsAddToCard] = useState(false)
 
   const showModalViewInformDetail = () => {
     setIsModalShowInformOpen(true);
   };
-
 
   const handleShowInformOk = () => {
     setIsModalShowInformOpen(false);
@@ -36,14 +36,22 @@ const index = () => {
     setIsModalShowInformOpen(false);
   };
 
-
   const showModalAddToCart = () => {
     setIsModalShowModalAddToCartOpen(true);
   };
 
-
-  const handleAddToCartOk = () => {
+  const handleAddToCartOk = async (value: string) => {
+    try {
+      const response = await serviceApi.getInformService(
+        authState?.accessToken ?? "",
+        value ?? ""
+      );
+      setDataService(response.userConfig)
+    } catch (error) {
+      console.error("API error:", error);
+    }
     setIsModalShowModalAddToCartOpen(false);
+
   };
 
   const handleAddToCartCancel = () => {
@@ -51,7 +59,7 @@ const index = () => {
   };
 
   const { Option } = Select;
-  const { handleLogOut, authState, accountExtendDetail, getAccountExtendDetails } = useContext(AuthContext);
+  const { handleLogOut, authState, accountExtendDetail } = useContext(AuthContext);
 
   const { isPending, error, data } = useQuery<any>({
     queryKey: ["getPaymentHistory", authState?.accessToken],
@@ -63,6 +71,8 @@ const index = () => {
     queryKey: ["getDataNotification", authState?.accessToken],
     queryFn: async () => await serviceApi.getInformWebsite(authState?.accessToken ?? ""),
   });
+
+
 
   const handleChange = (value: string) => {
     setIdWebsite(value)
@@ -170,31 +180,31 @@ const index = () => {
               <div className='w-full'>
                 <div className='flex gap-5 w-full justify-between mb-4'>
                   <div>
-                    <p className='font-semibold text-2xl'>{record.user.fullname}</p>
+                    <p className='font-semibold text-2xl'>{record.domain}</p>
                     <div className='flex gap-2'>
                       <p>Đánh giá nhà cung cấp:</p>
                       <Rate allowHalf defaultValue={2.5} />
                     </div>
                   </div>
                   <div>
-                    <div className='flex gap-3'>
-                      <p>Đối tác:</p>
-                      <p className='text-yellow-400 font-semibold'>GlobalSEOSEM</p>
+                    <div className='flex gap-3 items-center'>
+                      <p className='font-semibold text-[20px]'>Đối tác: { }</p>
+                      <p className='text-yellow-400 font-semibold'>{record.user.fullname}</p>
                     </div>
-                    <div className='flex gap-3'>
-                      <p>Telegram: </p>
-                      <p>@globalseosem</p>
+                    <div className='flex gap-3 items-center'>
+                      <p className='font-semibold text-[20px]'>Telegram: </p>
+                      <p>{record.user.telegram}</p>
                     </div>
-                    <div className='flex gap-3'>
-                      <p>Số tài khoản ngân hàng: </p>
-                      <p>100014141736</p>
+                    <div className='flex gap-3 items-center'>
+                      <p className='font-semibold text-[20px]'>Số tài khoản ngân hàng: </p>
+                      <p>{record.user.bankNumber}</p>
                     </div>
-                    <div className='flex gap-3'>
-                      <p>Ngân hàng: </p>
-                      <p>NCB</p>
+                    <div className='flex gap-3 items-center'>
+                      <p className='font-semibold text-[20px]'>Ngân hàng: </p>
+                      <p>{record.user.bankName}</p>
                     </div>
-                    <div className='flex gap-3'>
-                      <p>Tên trên thẻ ngân hàng: </p>
+                    <div className='flex gap-3 items-center'>
+                      <p className='font-semibold text-[20px]'>Tên trên thẻ ngân hàng: </p>
                       <p>Hoang Van Dung</p>
                     </div>
                   </div>
@@ -237,7 +247,7 @@ const index = () => {
             <Modal
               open={isModalShowModalAddToCartOpen}
               title="Thêm vào giỏ hàng"
-              onOk={handleAddToCartOk}
+              onOk={() => handleAddToCartOk(record._id)}
               onCancel={handleAddToCartCancel}
             >
               <div className='flex flex-col gap-5'>
@@ -248,7 +258,7 @@ const index = () => {
                   </div>
                   <div className='flex flex-col gap-3'>
                     <p className='text-[20px] font-semibold'>Giá cả</p>
-                    <p>700,000</p>
+                    <p>{record.cost}</p>
                   </div>
                   <div className='flex flex-col gap-3'>
                     <p className='text-[20px] font-semibold'>Số lượng</p>
@@ -256,12 +266,11 @@ const index = () => {
                       <button onClick={() => setValue(value - 1)}><MinusCircleOutlined /></button>
                       <p>{value}</p>
                       <button onClick={() => setValue(value + 1)}><PlusCircleOutlined /></button>
-
                     </div>
                   </div>
                 </div>
                 <div className='text-green-600'>Chiết khấu của domain này là 10%</div>
-                <div><span className='text-[20px] font-semibold'>Tổng tiền:</span> <span className='text-yellow-500 font-semibold'>0</span></div>
+                <div><span className='text-[20px] font-semibold'>Tổng tiền:</span> <span className='text-yellow-500 font-semibold text-[20px]'>{record.cost * value}</span></div>
               </div>
             </Modal>
             <Button type='primary' className='mr-3' onClick={() => handleApprove(record.id)}>Duyệt</Button>
@@ -290,7 +299,9 @@ const index = () => {
               <Button type='primary' onClick={handleFilterService}>Filter service</Button>
             </div>
             <Table dataSource={dataService} columns={columns} />
+            <div>
 
+            </div>
           </div>
         </div>
       </div>
