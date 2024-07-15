@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { informationApi, notificationApi, serviceApi, voucherApi } from '@/api-client'
 import AppLayout from '@/components/Layout/AppLayout'
 import { AuthContext } from '@/context/useAuthContext'
@@ -10,6 +10,7 @@ import Header from '@/components/Header'
 import { convertDate } from '@/utils/convertDate'
 
 const index = () => {
+  const [dataVoucher, setDataVoucher] = useState()
 
   const { handleLogOut, authState, accountExtendDetail, getAccountExtendDetails } = useContext(AuthContext);
 
@@ -18,10 +19,17 @@ const index = () => {
     queryFn: async () => await informationApi.getInformPublisher(authState?.accessToken ?? "", authState?.userId ?? ""),
   });
 
-  const { isLoading: isLoadingNotification, error: errorNotification, data: dataVoucher } = useQuery<any>({
-    queryKey: ["getDataNotification", authState?.accessToken],
-    queryFn: async () => await voucherApi.getAllVoucher(authState?.accessToken ?? ""),
-  });
+  const handleGetDataVoucher = async () => {
+    const response = await voucherApi.getAllVoucher(authState?.accessToken ?? "");
+    console.log("response", response);
+    setDataVoucher(response)
+  }
+  console.log("dataVoucher", dataVoucher);
+
+
+  useEffect(() => {
+    handleGetDataVoucher()
+  }, [])
 
 
 
@@ -89,7 +97,7 @@ const index = () => {
         <div className="p-6">
           <Header title={data} />
           <div className="mt-[50px] flex flex-col  gap-5 h-[1px] bg-black  bg-opacity-20 max-lg:hidden" >
-            <Table dataSource={dataVoucher?.data || dataVoucher} columns={columns} />
+            <Table dataSource={dataVoucher || dataVoucher} columns={columns} />
           </div>
         </div>
       </div>

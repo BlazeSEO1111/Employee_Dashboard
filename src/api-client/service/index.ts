@@ -27,7 +27,7 @@ class ApiService extends ApiClientBase {
 
   public async getInformService(accessToken: string, userId: string): Promise<BaseResponse | any> {
     try {
-      const res = await this.instance.get(`/api/v1/userConfig/${userId}`, {
+      const res = await this.instance.get(`/api/v1/userConfig/get-service-by-website/${userId}`, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
