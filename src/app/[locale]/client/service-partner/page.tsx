@@ -54,18 +54,31 @@ const index = () => {
 
     const handleAddToCartOk = async (value: string) => {
         try {
-            const response = await serviceApi.getInformService(
+        console.log("value", value)
+            const response = await serviceApi.addProductToCart(
                 authState?.accessToken ?? "",
                 value ?? ""
             );
             toast.success("Thêm vào giỏ hàng thành công.")
-            setDataService(response.userConfig)
+            // setDataService(response.userConfig)
         } catch (error) {
             console.error("API error:", error);
         }
-        setIsModalShowModalAddToCartOpen(false);
-
     };
+    // const handleAddToCartOk = async (value: string) => {
+    //     try {
+    //         const response = await serviceApi.addProductToCart(
+    //             authState?.accessToken ?? "",
+    //             value ?? ""
+    //         );
+    //         toast.success("Thêm vào giỏ hàng thành công.")
+    //         setDataService(response.userConfig)
+    //     } catch (error) {
+    //         console.error("API error:", error);
+    //     }
+    //     setIsModalShowModalAddToCartOpen(false);
+    //
+    // };
 
     const handleAddToCartCancel = () => {
         setIsModalShowModalAddToCartOpen(false);
@@ -85,7 +98,6 @@ const index = () => {
         setDataWebsite(response?.data)
     }
 
-    console.log("dataWebsite", dataWebsite);
     useEffect(() => {
         handleGetDataWebsite()
     }, [])
@@ -97,18 +109,15 @@ const index = () => {
 
     const handleFilterService = async () => {
         try {
-            console.log("11111111")
             const response = await serviceApi.getInformService(
                 authState?.accessToken ?? "",
                 idWebsite ?? ""
             );
-            console.log("response", response)
             setDataService(response.userConfig)
         } catch (error) {
             console.error("API error:", error);
         }
     }
-    console.log("dataService", dataService)
     const dataChart = [
         {
             name: 'Page A',
@@ -186,14 +195,12 @@ const index = () => {
             key: 'type',
             with: "20%",
             render: (text: any, record: any) => {
-                console.log("record", record);
-                console.log("record", record.fullname);
                 return (
                     <div className='"flex gap-[20px] w-full justify-center items-center'>
                         <Button style={{background: "#24b592"}} className='mr-3'
                                 onClick={showModalViewInformDetail}><FundViewOutlined/> Xem thông tin </Button>
                         <Button style={{background: "#ffbc36"}} className='mr-3'
-                                onClick={showModalAddToCart}><ShoppingOutlined/> Thêm vào giỏ hàng </Button>
+                                onClick={() => handleAddToCartOk(record._id)}><ShoppingOutlined/> Thêm vào giỏ hàng </Button>
                         <Modal width={1000} className='w-full' title="Chi tiết" open={isModalShowInformOpen}
                                onOk={handleShowInformOk} onCancel={handleShowInformCancel}>
                             <div className='w-full'>
@@ -322,12 +329,10 @@ const index = () => {
                         </div>
                         <Table dataSource={dataService} columns={columns}/>
                         <div>
-
                         </div>
                     </div>
                 </div>
             </div>
-
         </AppLayout>
     )
 }

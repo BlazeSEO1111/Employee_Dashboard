@@ -38,6 +38,21 @@ class ApiService extends ApiClientBase {
       throw error;
     }
   }
+  public async addProductToCart(accessToken: string, userId: string, productId?: string): Promise<BaseResponse | any> {
+    try {
+      const res = await this.instance.post(`/api/v1/userConfig/add-to-cart/${userId}`, {
+        productId: productId
+      }, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      });
+      return res.data;
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+      throw error;
+    }
+  }
 
   public async approveService(accessToken: string, userId: string): Promise<BaseResponse | any> {
     try {
