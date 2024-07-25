@@ -12,7 +12,6 @@ class ApiGetAllUser extends ApiClientBase {
 
 
     public async getAllUserManage(accessToken: string): Promise<BaseResponse | any> {
-
         try {
             const res = await this.instance.get(`api/v1/users/get-all`, {
                 headers: {
@@ -22,6 +21,20 @@ class ApiGetAllUser extends ApiClientBase {
             return res.data;
         } catch (error) {
             console.error("Error fetching user information:", error);
+            throw error;
+        }
+    }
+
+    public async deactivateUser(userId: string, accessToken: string): Promise<BaseResponse | any> {
+        try {
+            const res = await this.instance.delete(`api/v1/users/block-user/${userId}`, {
+                headers: {
+                    Authorization: "Bearer " + accessToken,
+                },
+            });
+            return res.data;
+        } catch (error) {
+            console.error("Error deactivating user:", error);
             throw error;
         }
     }

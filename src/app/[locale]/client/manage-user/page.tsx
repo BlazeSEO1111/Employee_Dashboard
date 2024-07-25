@@ -5,37 +5,57 @@ import {useQuery} from '@tanstack/react-query';
 import {AuthContext} from "@/context/useAuthContext";
 import {informationApi, manageUserApi} from "@/api-client";
 import Header from '@/components/Header'
-import {Table} from "antd";
+import {Spin, Table} from "antd";
 import {roleAccount} from "@/utils/checkRole";
+import {useRouter} from "next/navigation";
 
 
 const ManageUser = () => {
 
     const [dataUser, setDataUser] = useState()
+    const router = useRouter();
+    const [statusUser, setStatusUser] = useState()
 
     const {handleLogOut, authState, accountExtendDetail, getAccountExtendDetails} = useContext(AuthContext);
 
     const {isLoading, error, data} = useQuery<any>({
         queryKey: ["getPaymentHistory", authState?.accessToken],
         queryFn: async () => await informationApi.getInformPublisher(authState?.accessToken ?? "", authState?.userId ?? ""),
+        enabled: !!authState?.userId,
     });
 
-    const handleGetDataVoucher = async () => {
-        const response = await manageUserApi.getAllUserManage(authState?.accessToken ?? "");
-        console.log("response", response);
-        setDataUser(response.data)
+
+    const handleGetAllUser = async () => {
+        if (authState?.userId) {
+            const response = await manageUserApi.getAllUserManage(authState?.accessToken ?? "");
+            console.log("response", response);
+            setDataUser(response.data)
+        }
+
     }
     console.log("dataVoucher", dataUser);
+    console.log("authState?.userId", authState?.userId);
+    const handleDeactivateUser = async (userId: string) => {
+        try {
+            const response = await manageUserApi.deactivateUser(userId, authState?.accessToken ?? "");
+            console.log("response", response);
+            await handleGetAllUser()
+            console.log("deactivate user", userId)
+        } catch (e) {
+            console.log("error", e)
+        }
+
+    }
 
 
     useEffect(() => {
-        handleGetDataVoucher()
-    }, [])
+        handleGetAllUser()
+    }, [authState?.userId])
 
 
     if (!authState?.accessToken) return <>
         <AppLayout>
-            <div>Vui lòng đăng nhập</div>
+            <Spin fullscreen={true}/>
         </AppLayout>
     </>
 
@@ -44,20 +64,20 @@ const ManageUser = () => {
         {
             title: 'NAME',
             dataIndex: 'fullname',
-            render: (text: any) => (<p className=' font-extrabold'>{text}</p>)
+            render: (text: any) => (<p className=' '>{text}</p>)
         },
         {
             title: 'TÊN TÀI KHOẢN',
             dataIndex: 'username',
-            render: (text: any) => (<p className=' font-extrabold'>{text}</p>)
+            render: (text: any) => (<p className=''>{text}</p>)
         }, {
             title: 'EMAIL',
             dataIndex: 'email',
-            render: (text: any) => (<p className=' font-extrabold'>{text}</p>)
+            render: (text: any) => (<p className=' '>{text}</p>)
         }, {
             title: 'QUYỀN',
             dataIndex: 'role',
-            render: (text: any, record: any) => (<p className=' font-extrabold'>{roleAccount(record.role)}</p>)
+            render: (text: any, record: any) => (<p className=' '>{roleAccount(record.role)}</p>)
         },
         {
             title: 'STATUS',
@@ -68,6 +88,18 @@ const ManageUser = () => {
                     )
                     : <p className='uppercase text-red-500 font-extrabold'>INACTIVE</p>
             )
+        },
+        {
+            title: 'ACTION',
+            render: (text: any, record: any) => {
+                console.log("record", record)
+                return (<div>
+                    <button className='bg-blue-500 text-white p-2 rounded-md'>EDIT</button>
+                    <button className='bg-red-500 text-white p-2 rounded-md'
+                            onClick={() => handleDeactivateUser(record._id)}>DEACTIVATE USER
+                    </button>
+                </div>)
+            }
         },
     ];
 
