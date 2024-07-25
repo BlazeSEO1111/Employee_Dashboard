@@ -1,30 +1,13 @@
 "use client"
-import React, {useEffect, useState} from 'react'
-import {informationApi, notificationApi, serviceApi} from '@/api-client'
+import React, {useContext, useEffect, useState} from 'react'
+import {informationApi, serviceApi} from '@/api-client'
 import AppLayout from '@/components/Layout/AppLayout'
 import {AuthContext} from '@/context/useAuthContext'
 import {useQuery} from '@tanstack/react-query'
-import {Button, Modal, Rate, Select, Table, Tabs} from 'antd'
-import {useContext} from 'react'
-import {
-    LineChart,
-    Line,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    Legend,
-    ResponsiveContainer,
-    BarChart,
-    Bar
-} from 'recharts';
+import {Button, Modal, Rate, Select, Table} from 'antd'
+import {CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts';
 import Header from '@/components/Header'
-import {
-    FundViewOutlined,
-    ShoppingOutlined,
-    MinusCircleOutlined,
-    PlusCircleOutlined
-} from '@ant-design/icons';
+import {FundViewOutlined, MinusCircleOutlined, PlusCircleOutlined, ShoppingOutlined} from '@ant-design/icons';
 import {toast} from 'react-toastify'
 
 const index = () => {
@@ -54,7 +37,7 @@ const index = () => {
 
     const handleAddToCartOk = async (value: string) => {
         try {
-        console.log("value", value)
+            console.log("value", value)
             const response = await serviceApi.addProductToCart(
                 authState?.accessToken ?? "",
                 value ?? ""
@@ -65,20 +48,6 @@ const index = () => {
             console.error("API error:", error);
         }
     };
-    // const handleAddToCartOk = async (value: string) => {
-    //     try {
-    //         const response = await serviceApi.addProductToCart(
-    //             authState?.accessToken ?? "",
-    //             value ?? ""
-    //         );
-    //         toast.success("Thêm vào giỏ hàng thành công.")
-    //         setDataService(response.userConfig)
-    //     } catch (error) {
-    //         console.error("API error:", error);
-    //     }
-    //     setIsModalShowModalAddToCartOpen(false);
-    //
-    // };
 
     const handleAddToCartCancel = () => {
         setIsModalShowModalAddToCartOpen(false);
@@ -89,7 +58,14 @@ const index = () => {
 
     const {isPending, error, data} = useQuery<any>({
         queryKey: ["getPaymentHistory", authState?.accessToken],
-        queryFn: async () => await informationApi.getInformPublisher(authState?.accessToken ?? "", authState?.userId ?? ""),
+        queryFn: async () => {
+            if (authState?.userId) {
+                return await informationApi.getInformPublisher(authState?.accessToken ?? "", authState.userId);
+            } else {
+                return null; // Hoặc một giá trị mặc định khác nếu cần
+            }
+        },
+        enabled: !!authState?.userId, // Chỉ bật query nếu userId tồn tại
     });
 
 
@@ -200,7 +176,8 @@ const index = () => {
                         <Button style={{background: "#24b592"}} className='mr-3'
                                 onClick={showModalViewInformDetail}><FundViewOutlined/> Xem thông tin </Button>
                         <Button style={{background: "#ffbc36"}} className='mr-3'
-                                onClick={() => handleAddToCartOk(record._id)}><ShoppingOutlined/> Thêm vào giỏ hàng </Button>
+                                onClick={() => handleAddToCartOk(record._id)}><ShoppingOutlined/> Thêm vào giỏ hàng
+                        </Button>
                         <Modal width={1000} className='w-full' title="Chi tiết" open={isModalShowInformOpen}
                                onOk={handleShowInformOk} onCancel={handleShowInformCancel}>
                             <div className='w-full'>

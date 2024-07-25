@@ -8,6 +8,7 @@ import MainInfor from './MainInfor';
 import {informationApi, notificationApi} from '@/api-client';
 import {AuthContext} from '@/context/useAuthContext';
 import {useQuery} from '@tanstack/react-query';
+import {roleAccount} from "@/utils/checkRole";
 
 const ProfileEmployee = () => {
 
@@ -47,13 +48,13 @@ const ProfileEmployee = () => {
         },
     ];
 
-    const renderStatusProfile = (value: string) => {
+    const renderStatusProfile = (value: boolean) => {
         switch (value) {
-            case "active":
+            case false:
                 return (
                     <span className='text-green-600 font-semibold'>ACTIVE</span>
                 )
-            case "inactive":
+            case true:
                 return (
                     <span className='text-red-500 font-semibold'>INACTIVE</span>
                 )
@@ -67,6 +68,7 @@ const ProfileEmployee = () => {
             <div>Vui lòng đăng nhập</div>
         </AppLayout>
     </>
+    console.log("data.isDeletedata.isDelete", data?.isDelete)
 
     return (
 
@@ -74,12 +76,13 @@ const ProfileEmployee = () => {
             <div className="w-full  h-screen flex flex-col">
                 <div className="p-6">
                     <Header title={data}/>
+
                     <div><span
-                        className='text-blue-600 font-semibold'>Trạng thái tài khoản</span> : {renderStatusProfile(statusProfile)}
+                        className='text-blue-600 font-semibold'>Trạng thái tài khoản</span> : {renderStatusProfile(data?.isDelete)}
                     </div>
-                    <div className='flex flex-col gap-3 mt-2'>
+                    <div className='flex  gap-3 mt-2'>
                         <p className='text-blue-600 font-semibold'>Quyền tài khoản:</p>
-                        <p className='text-green-600 font-semibold'>Sale</p>
+                        <p className='text-green-600 font-semibold uppercase'>{roleAccount(authState?.role)}</p>
                     </div>
                     <div className="h-[1px] bg-black  bg-opacity-20 my-4 max-lg:hidden">
                         <Tabs defaultActiveKey="1" items={items}/>
