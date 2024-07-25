@@ -24,3 +24,4 @@ export const roleDefault = [
         name: 'Đối tác',
     },
 ];
+export const roleAdmin = "659ba7c62b611171a5347a97"

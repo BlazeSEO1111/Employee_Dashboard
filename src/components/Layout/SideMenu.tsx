@@ -1,16 +1,16 @@
 "use client";
 import {
-  AdsSideBarIcon,
-  AffiliateIcon,
-  ContactIcon,
-  FacebookIcon,
-  HistoryIcon,
-  ManageUser,
-  ProfileIcon,
-  ServiceIcon,
-  TeleGramIcon,
-  TicketIcon,
-  UserIcon
+    AdsSideBarIcon,
+    AffiliateIcon,
+    ContactIcon,
+    FacebookIcon,
+    HistoryIcon,
+    ManageUser,
+    ProfileIcon,
+    ServiceIcon,
+    TeleGramIcon,
+    TicketIcon,
+    UserIcon
 } from "@/assets/images";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,6 +20,7 @@ import Avatar from "../Avatar";
 import {AuthContext} from "@/context/useAuthContext";
 import {LoginIcon} from "@/assets/icon";
 import {MailOutlined, SkypeOutlined} from '@ant-design/icons';
+import {roleAdmin} from "@/constant";
 
 interface MenuItemType {
     key: string;
@@ -31,8 +32,7 @@ interface MenuItemType {
 const SideMenu = () => {
     let pathname = usePathname();
     const {authState} = useContext(AuthContext);
-
-    const [listMenu] = useState<MenuItemType[]>([
+    const menuItems: MenuItemType[] = [
         {
             key: "client/profile-employee",
             icon: UserIcon,
@@ -57,26 +57,18 @@ const SideMenu = () => {
             label: "Mã Quảng Cáo",
             active: false,
         },
-        {
+
+    ]
+    const [listMenu] = useState<MenuItemType[]>(menuItems);
+
+    if (authState?.role === roleAdmin) {
+        menuItems.push({
             key: "client/manage-user",
             icon: ManageUser,
-            label: "Quản lý user",
+            label: "Mã Quảng Cáo",
             active: false,
-        },
-
-        // {
-        //   key: "client/service",
-        //   icon: FacebookIcon,
-        //   label: "Mua tài khoản",
-        //   active: false,
-        // },
-        // {
-        //   key: "client/service-mxh",
-        //   icon: AdsIcon,
-        //   label: "Hệ thống like sub",
-        //   active: false,
-        // },
-    ]);
+        });
+    }
 
     const [listMenu2] = useState<MenuItemType[]>([
         {
