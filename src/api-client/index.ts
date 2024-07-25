@@ -6,6 +6,7 @@ import ApiProfile from "./profile-employee";
 import ApiService from "./service";
 import ApiVoucher from "./voucher";
 import ApiCart from "@/api-client/cart ";
+import ApiGetAllUser from "@/api-client/all-employee";
 
 export const authApi = new ApiAuth();
 export const paymentApi = new ApiPayment();
@@ -15,3 +16,4 @@ export const notificationApi = new ApiNotification();
 export const serviceApi = new ApiService();
 export const voucherApi = new ApiVoucher();
 export const cartApi = new ApiCart();
+export const manageUserApi = new ApiGetAllUser();

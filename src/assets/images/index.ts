@@ -18,27 +18,30 @@ import TeleGramIcon from "./telegram.png"
 import DashBoardIcon from "./dashboard.png"
 import ServiceIcon from "./service.png"
 import CampaignIcon from "./campain.png"
+import ManageUser from "./manageUser.png"
 import AdsSideBarIcon from "./adsSideBar.png"
+
 export {
-  CampaignIcon,
-  AdsSideBarIcon,
-  ServiceIcon,
-  DashBoardIcon,
-  TeleGramIcon,
-  FacebookIcon,
-  AdsIcon,
-  AffiliateIcon,
-  ChatIcon,
-  CreditCardIcon,
-  IdCardIcon,
-  ProfileIcon,
-  QuestionIcon,
-  TicketIcon,
-  ToolIcon,
-  ToolFbIcon,
-  HistoryIcon,
-  ContactIcon,
-  Contact2Icon,
-  UserIcon,
-  AdCode
+    CampaignIcon,
+    AdsSideBarIcon,
+    ServiceIcon,
+    DashBoardIcon,
+    TeleGramIcon,
+    FacebookIcon,
+    AdsIcon,
+    AffiliateIcon,
+    ChatIcon,
+    CreditCardIcon,
+    IdCardIcon,
+    ProfileIcon,
+    QuestionIcon,
+    TicketIcon,
+    ToolIcon,
+    ToolFbIcon,
+    HistoryIcon,
+    ContactIcon,
+    Contact2Icon,
+    UserIcon,
+    AdCode,
+    ManageUser
 };
