@@ -20,14 +20,11 @@ const ProfileEmployee = () => {
             if (authState?.userId) {
                 return await informationApi.getInformPublisher(authState?.accessToken ?? "", authState.userId);
             } else {
-                return null; // Hoặc một giá trị mặc định khác nếu cần
+                return null;
             }
         },
         enabled: !!authState?.userId, // Chỉ bật query nếu userId tồn tại
     });
-    console.log("authState", authState)
-    console.log("authState.userId", authState?.userId)
-    console.log("datadatadata", data)
 
     const {isLoading: isLoadingNotification, error: errorNotification, data: dataNotification} = useQuery<any>({
         queryKey: ["getDataNotification", authState?.accessToken],
@@ -68,7 +65,6 @@ const ProfileEmployee = () => {
             <div>Vui lòng đăng nhập</div>
         </AppLayout>
     </>
-    console.log("data.isDeletedata.isDelete", data?.isDelete)
 
     return (
 

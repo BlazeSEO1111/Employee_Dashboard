@@ -37,7 +37,6 @@ const index = () => {
 
     const handleAddToCartOk = async (value: string) => {
         try {
-            console.log("value", value)
             const response = await serviceApi.addProductToCart(
                 authState?.accessToken ?? "",
                 value ?? ""
@@ -46,6 +45,7 @@ const index = () => {
             // setDataService(response.userConfig)
         } catch (error) {
             console.error("API error:", error);
+            toast.error("Thêm vào giỏ hàng thất bại.")
         }
     };
 

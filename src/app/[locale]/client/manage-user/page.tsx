@@ -5,9 +5,10 @@ import {useQuery} from '@tanstack/react-query';
 import {AuthContext} from "@/context/useAuthContext";
 import {informationApi, manageUserApi} from "@/api-client";
 import Header from '@/components/Header'
-import {Spin, Table} from "antd";
+import {Button, Spin, Table} from "antd";
 import {roleAccount} from "@/utils/checkRole";
 import {useRouter} from "next/navigation";
+import {toast} from "react-toastify";
 
 
 const ManageUser = () => {
@@ -15,10 +16,10 @@ const ManageUser = () => {
     const [dataUser, setDataUser] = useState()
     const router = useRouter();
     const [statusUser, setStatusUser] = useState()
-
+    const [isLoading, setIsLoading] = useState(false)
     const {handleLogOut, authState, accountExtendDetail, getAccountExtendDetails} = useContext(AuthContext);
 
-    const {isLoading, error, data} = useQuery<any>({
+    const {isLoading: isLoadingInform, error, data} = useQuery<any>({
         queryKey: ["getPaymentHistory", authState?.accessToken],
         queryFn: async () => await informationApi.getInformPublisher(authState?.accessToken ?? "", authState?.userId ?? ""),
         enabled: !!authState?.userId,
@@ -37,10 +38,23 @@ const ManageUser = () => {
     console.log("authState?.userId", authState?.userId);
     const handleDeactivateUser = async (userId: string) => {
         try {
+            setIsLoading(true)
             const response = await manageUserApi.deactivateUser(userId, authState?.accessToken ?? "");
-            console.log("response", response);
             await handleGetAllUser()
-            console.log("deactivate user", userId)
+            setIsLoading(false)
+            toast.success("Khoá thành công")
+        } catch (e) {
+            console.log("error", e)
+        }
+
+    }
+    const handleActiveUser = async (userId: string) => {
+        try {
+            setIsLoading(true)
+            const response = await manageUserApi.activeUser(userId, authState?.accessToken ?? "");
+            await handleGetAllUser()
+            setIsLoading(false)
+            toast.success("Mở khoá thành công")
         } catch (e) {
             console.log("error", e)
         }
@@ -58,6 +72,10 @@ const ManageUser = () => {
             <Spin fullscreen={true}/>
         </AppLayout>
     </>
+
+    if (isLoading) {
+        return <Spin fullscreen={true}/>
+    }
 
 
     const columns = [
@@ -82,22 +100,37 @@ const ManageUser = () => {
         {
             title: 'STATUS',
             dataIndex: 'isDelete',
+            filters: [
+                {
+                    text: 'ACTIVE',
+                    value: false,
+                },
+                {
+                    text: 'INACTIVE',
+                    value: true,
+                },
+            ],
+            onFilter: (value: any, record: any) => record.isDelete === value,
             render: (text: any) => (
                 text === false ? (
-                        <p className='uppercase text-blue-500 font-extrabold'>ACTIVE</p>
-                    )
-                    : <p className='uppercase text-red-500 font-extrabold'>INACTIVE</p>
-            )
+                    <p className='uppercase text-blue-500 font-extrabold'>ACTIVE</p>
+                ) : (
+                    <p className='uppercase text-red-500 font-extrabold'>INACTIVE</p>
+                )
+            ),
         },
         {
             title: 'ACTION',
             render: (text: any, record: any) => {
                 console.log("record", record)
-                return (<div>
-                    <button className='bg-blue-500 text-white p-2 rounded-md'>EDIT</button>
-                    <button className='bg-red-500 text-white p-2 rounded-md'
-                            onClick={() => handleDeactivateUser(record._id)}>DEACTIVATE USER
-                    </button>
+                return (<div className={"flex gap-2"}>
+                    <Button className='bg-blue-500 text-white p-2 rounded-md'>EDIT</Button>
+                    <Button className='bg-red-500 text-white p-2 rounded-md'
+                            onClick={() => handleDeactivateUser(record._id)}>KHOÁ TÀI KHOẢN
+                    </Button>
+                    <Button disabled={!record.isDelete} className='bg-blue-500 text-white p-2 rounded-md'
+                            onClick={() => handleActiveUser(record._id)}>MỞ KHOÁ TÀI KHOẢN
+                    </Button>
                 </div>)
             }
         },

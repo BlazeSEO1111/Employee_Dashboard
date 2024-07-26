@@ -39,6 +39,20 @@ class ApiGetAllUser extends ApiClientBase {
         }
     }
 
+    public async activeUser(userId: string, accessToken: string): Promise<BaseResponse | any> {
+        try {
+            const res = await this.instance.delete(`api/v1/users/unblock-user/${userId}`, {
+                headers: {
+                    Authorization: "Bearer " + accessToken,
+                },
+            });
+            return res.data;
+        } catch (error) {
+            console.error("Error unblock user:", error);
+            throw error;
+        }
+    }
+
 }
 
 export default ApiGetAllUser;

@@ -1,4 +1,3 @@
-import { toast } from "react-toastify";
 import ApiClientBase from "../ApiClientBase";
 
 interface BaseResponse {
@@ -20,8 +19,9 @@ class ApiCart extends ApiClientBase {
         });
         return res.data;
     }
-    public async approveProduct(accessToken: string, productId?:string): Promise<BaseResponse | any> {
-        const res = await this.instance.post(`/api/v1/userConfig/${productId}`, {},{
+
+    public async approveProduct(accessToken: string, productId?: string): Promise<BaseResponse | any> {
+        const res = await this.instance.post(`/api/v1/userConfig/received-service/${productId}`, {}, {
             headers: {
                 Authorization: "Bearer " + accessToken,
             },

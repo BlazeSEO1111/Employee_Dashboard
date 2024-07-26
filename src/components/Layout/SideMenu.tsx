@@ -15,7 +15,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import Avatar from "../Avatar";
 import {AuthContext} from "@/context/useAuthContext";
 import {LoginIcon} from "@/assets/icon";
@@ -59,16 +59,23 @@ const SideMenu = () => {
         },
 
     ]
-    const [listMenu] = useState<MenuItemType[]>(menuItems);
+    const [listMenu, setListMenu] = useState<MenuItemType[]>(menuItems);
+    console.log("authState?.role", authState?.role === roleAdmin)
+    console.log("111111", authState)
 
-    if (authState?.role === roleAdmin) {
-        menuItems.push({
-            key: "client/manage-user",
-            icon: ManageUser,
-            label: "Mã Quảng Cáo",
-            active: false,
-        });
-    }
+    useEffect(() => {
+        if (authState?.role === roleAdmin) {
+            setListMenu(prevMenu => [
+                ...prevMenu,
+                {
+                    key: "client/manage-user",
+                    icon: ManageUser,
+                    label: "Quản lý user",
+                    active: false,
+                }
+            ]);
+        }
+    }, [authState?.role]);
 
     const [listMenu2] = useState<MenuItemType[]>([
         {
