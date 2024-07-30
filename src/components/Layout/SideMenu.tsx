@@ -9,8 +9,7 @@ import {
     ProfileIcon,
     ServiceIcon,
     TeleGramIcon,
-    TicketIcon,
-    UserIcon
+    TicketIcon
 } from "@/assets/images";
 import Image from "next/image";
 import Link from "next/link";
@@ -33,12 +32,12 @@ const SideMenu = () => {
     let pathname = usePathname();
     const {authState} = useContext(AuthContext);
     const menuItems: MenuItemType[] = [
-        {
-            key: "client/profile-employee",
-            icon: UserIcon,
-            label: "Hồ sơ",
-            active: false,
-        },
+        // {
+        //     key: "client/profile-employee",
+        //     icon: UserIcon,
+        //     label: "Hồ sơ",
+        //     active: false,
+        // },
         {
             key: "client/service-partner",
             icon: ServiceIcon,
@@ -57,11 +56,15 @@ const SideMenu = () => {
             label: "Mã Quảng Cáo",
             active: false,
         },
+        {
+            key: "client/service-manage",
+            icon: AffiliateIcon,
+            label: "Quản lý dịch vụ",
+            active: false,
+        },
 
     ]
     const [listMenu, setListMenu] = useState<MenuItemType[]>(menuItems);
-    console.log("authState?.role", authState?.role === roleAdmin)
-    console.log("111111", authState)
 
     useEffect(() => {
         if (authState?.role === roleAdmin) {

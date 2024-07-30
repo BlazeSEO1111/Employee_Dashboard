@@ -7,6 +7,7 @@ import ApiService from "./service";
 import ApiVoucher from "./voucher";
 import ApiCart from "@/api-client/cart ";
 import ApiGetAllUser from "@/api-client/all-employee";
+import ApiServiceManage from "@/api-client/service-manage";
 
 export const authApi = new ApiAuth();
 export const paymentApi = new ApiPayment();
@@ -17,3 +18,4 @@ export const serviceApi = new ApiService();
 export const voucherApi = new ApiVoucher();
 export const cartApi = new ApiCart();
 export const manageUserApi = new ApiGetAllUser();
+export const manageServiceApi = new ApiServiceManage();

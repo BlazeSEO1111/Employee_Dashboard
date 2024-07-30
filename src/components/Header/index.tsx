@@ -4,7 +4,7 @@ import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import {Bars3Icon, FolderIcon, HeartIcon, XMarkIcon} from "@heroicons/react/24/solid";
 import {usePathname, useRouter} from "next/navigation";
 import React, {FC, useContext, useRef, useState} from "react";
-import {ShoppingCartOutlined} from '@ant-design/icons';
+import {ShoppingCartOutlined, UserOutlined} from '@ant-design/icons';
 import {useTranslations} from "next-intl";
 
 interface IHeader {
@@ -40,6 +40,7 @@ const Header: FC<IHeader> = ({title}) => {
         if (pathname.indexOf("client/voucher") !== -1) return "Voucher";
         if (pathname.indexOf("client/card") !== -1) return "Mua hàng";
         if (pathname.indexOf("client/manage-user") !== -1) return "Quản lý người dùng";
+        if (pathname.indexOf("client/service-manage") !== -1) return "Quản lý dịch vụ";
         if (title) return title;
         return "Home";
     };
@@ -182,10 +183,18 @@ const Header: FC<IHeader> = ({title}) => {
                     )}
                 </div>
                 {authState ? (
-                    <div className="hover:cursor-pointer" onClick={() => {
-                        router.push("/client/card");
-                    }}>
-                        <ShoppingCartOutlined className="text-[30px]"/>
+                    <div className={"flex gap-4"}>
+
+                        <div className="hover:cursor-pointer" onClick={() => {
+                            router.push("/client/card");
+                        }}>
+                            <ShoppingCartOutlined className="text-[30px]"/>
+                        </div>
+                        <div className="hover:cursor-pointer" onClick={() => {
+                            router.push("/client/profile-employee");
+                        }}>
+                            <UserOutlined className="text-[30px] text-black"/>
+                        </div>
                     </div>
                 ) : (
                     <div className='flex'>

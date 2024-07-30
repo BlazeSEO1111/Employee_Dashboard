@@ -32,7 +32,7 @@ class ApiClientBase {
             if (err?.response?.status == 401) {
                 toast.error("Có lỗi xảy ra, vui lòng thử lại")
                 // localStorage.removeItem("AQToken");
-                // window.location.href = "/client/login";
+                window.location.href = "/";
             }
         }
         return Promise.reject(err);

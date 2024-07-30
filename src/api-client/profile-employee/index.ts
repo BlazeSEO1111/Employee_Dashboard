@@ -42,6 +42,20 @@ class ApiProfile extends ApiClientBase {
             throw error;
         }
     }
+
+    public async editPassword(accessToken: string, userId: string, payload: any): Promise<BaseResponse | any> {
+        try {
+            const res = await this.instance.put(`/api/v1/users/reset-password/${userId}`, payload, {
+                headers: {
+                    Authorization: "Bearer " + accessToken,
+                },
+            });
+            return res.data;
+        } catch (error) {
+            console.error("Error fetching user information:", error);
+            throw error;
+        }
+    }
 }
 
 export default ApiProfile;
