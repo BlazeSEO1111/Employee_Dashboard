@@ -29,13 +29,10 @@ const ManageUser = () => {
     const handleGetAllUser = async () => {
         if (authState?.userId) {
             const response = await manageUserApi.getAllUserManage(authState?.accessToken ?? "");
-            console.log("response", response);
             setDataUser(response.data)
         }
 
     }
-    console.log("dataVoucher", dataUser);
-    console.log("authState?.userId", authState?.userId);
     const handleDeactivateUser = async (userId: string) => {
         try {
             setIsLoading(true)
@@ -56,7 +53,6 @@ const ManageUser = () => {
             setIsLoading(false)
             toast.success("Mở khoá thành công")
         } catch (e) {
-            console.log("error", e)
         }
 
     }

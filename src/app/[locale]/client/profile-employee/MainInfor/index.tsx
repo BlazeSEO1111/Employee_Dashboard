@@ -9,7 +9,6 @@ const index = ({information}: { information: any }) => {
     const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [form] = Form.useForm();
-    console.log("information", information)
     const {handleLogOut, authState, accountExtendDetail, getAccountExtendDetails} = useContext(AuthContext);
 
     const onFinish = async (values: any) => {
@@ -64,6 +63,11 @@ const index = ({information}: { information: any }) => {
                         <Form.Item className='flex-1' name="telegram" label="Account Telegram">
                             <Input className={"rounded-xl h-[45px]"} placeholder="Telegram"/>
                         </Form.Item>
+                      
+                        <div className={"text-sky-500 mb-3"}>
+                            <a href={`https://t.me/${information?.fullname}`} target="_blank" rel="noopener noreferrer">Link
+                                tài khoản</a>
+                        </div>
                         <Form.Item className='flex-1'>
                             <div className={"flex gap-2 "}>
                                 <Button type="primary" htmlType="submit">

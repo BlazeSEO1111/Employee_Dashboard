@@ -2,13 +2,12 @@
 import AppLayout from "@/components/Layout/AppLayout";
 import {useTranslations} from "next-intl";
 import Header from "@/components/Header";
-import {Button, Modal, Rate, Select, Table} from "antd";
+import {Button, Table} from "antd";
 import React, {useContext, useEffect, useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 import {cartApi, informationApi} from "@/api-client";
 import {AuthContext} from "@/context/useAuthContext";
-import {FundViewOutlined, MinusCircleOutlined, PlusCircleOutlined, ShoppingOutlined} from "@ant-design/icons";
-import {CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import {FundViewOutlined} from "@ant-design/icons";
 import {toast} from "react-toastify";
 
 const ProfileEmployee = () => {
@@ -30,7 +29,6 @@ const ProfileEmployee = () => {
         toast.success("Đặt hàng thành công.")
     }
 
-    console.log("cartData", cartData)
 
     const columns = [
         {
