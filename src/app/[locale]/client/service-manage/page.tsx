@@ -8,6 +8,7 @@ import {useQuery} from '@tanstack/react-query';
 import {Button, Select, Table} from "antd";
 import queryString from 'query-string'
 import convertNumbThousand from "@/utils/convertNumbThousand";
+import {ServiceStatus} from "@/constant";
 
 const ServiceManage = () => {
     const [isLoading, setIsLoading] = useState(false)
@@ -88,6 +89,37 @@ const ServiceManage = () => {
 
     console.log("dataService", dataService);
 
+    function getStatusDescription(status: ServiceStatus): string {
+        switch (status) {
+            case ServiceStatus.DRAFT:
+                return 'Đơn tạo đang ở bản nháp chưa order';
+            case ServiceStatus.ORDER:
+                return 'Đã order nhưng chưa có NV nhận';
+            case ServiceStatus.CART:
+                return 'Nhân viên cho vào giỏ hàng';
+            case ServiceStatus.WAITINGFORLEADERAPPROVE:
+                return 'Đợi leader duyệt';
+            case ServiceStatus.WAITINGFORTLAPPROVE:
+                return 'Đợi trợ lý duyệt';
+            case ServiceStatus.LEADEREJECT:
+                return 'Leader từ chối duyệt';
+            case ServiceStatus.TLREJECT:
+                return 'TL từ chối duyệt';
+            case ServiceStatus.INPROGRESS:
+                return 'Đang triển khai: Dịch vụ đang được triển khai';
+            case ServiceStatus.COMPLETED:
+                return 'Đã hoàn thành: Dịch vụ đã chạy hết thời hạn và đúng cam kết của đối tác';
+            case ServiceStatus.APPROVED:
+                return 'Đã duyệt: Dịch vụ đã được trợ lý duyệt';
+            case ServiceStatus.WAITINGFORTRANFER:
+                return 'Đang đợi chuyển khoản: sau khi trợ lý duyệt dịch vụ thì chuyển sang trạng thái này';
+            case ServiceStatus.TRANFERCOMPLETED:
+                return 'Đã chuyển khoản: sau khi trợ lý đã thanh toán tiền dịch vụ cho đối tác';
+            default:
+                return 'Unknown status';
+        }
+    }
+
 
     const columns = [
         {
@@ -147,7 +179,7 @@ const ServiceManage = () => {
         {
             title: 'Trạng thái',
             dataIndex: 'status',
-            render: (text: any, record: any) => (<p className=' '>{text}</p>)
+            render: (text: any, record: any) => (<p className=' '>{getStatusDescription(text)}</p>)
         },
         {
             title: 'Người quản lý',

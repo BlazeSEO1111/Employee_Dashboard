@@ -25,3 +25,18 @@ export const roleDefault = [
     },
 ];
 export const roleAdmin = "659ba7c62b611171a5347a97"
+
+export enum ServiceStatus {
+    DRAFT = 'draft',
+    ORDER = 'order',
+    CART = 'cart',
+    WAITINGFORLEADERAPPROVE = 'waitingforleaderapprove',
+    WAITINGFORTLAPPROVE = 'waitingfortlapprove',
+    LEADEREJECT = 'leaderreject',
+    TLREJECT = 'tlreject',
+    INPROGRESS = 'inprogress',
+    COMPLETED = 'completed',
+    APPROVED = 'approved',
+    WAITINGFORTRANFER = 'waitingfortranfer',
+    TRANFERCOMPLETED = 'tranfercompleted',
+}
